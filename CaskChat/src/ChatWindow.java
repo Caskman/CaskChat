@@ -12,8 +12,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
 public class ChatWindow extends JFrame {
 
@@ -30,8 +28,11 @@ public class ChatWindow extends JFrame {
 	private JTextField chatBar;
 	private ChatAgent agent;
 	private boolean isFirst;
+	private JScrollPane scrollPane;
+	private boolean isAtBottom;
 
 	public ChatWindow() {
+		isAtBottom = true;
 		isFirst = true;
 		initializeFrame();
 	}
@@ -73,14 +74,13 @@ public class ChatWindow extends JFrame {
 				* padding - chatBar.getHeight());
 		textArea.setLocation(padding, padding);
 		textArea.setEditable(false);
-		JScrollPane scrollPane = new JScrollPane(textArea);
+		scrollPane = new JScrollPane(textArea);
 		scrollPane.setSize(textArea.getSize());
 		scrollPane.setLocation(textArea.getLocation());
 		scrollPane.getVerticalScrollBar().addAdjustmentListener(
 				new AdjustmentListener() {
 					public void adjustmentValueChanged(AdjustmentEvent e) {
-						e.getAdjustable().setValue(
-								e.getAdjustable().getMaximum());
+						isAtBottom = e.getAdjustable().getValue() == e.getAdjustable().getMaximum();
 					}
 				});
 		panel.add(scrollPane);
@@ -113,6 +113,10 @@ public class ChatWindow extends JFrame {
 		else {
 			textArea.append(message);
 			isFirst = false;
+		}
+		if (isAtBottom) {
+			scrollPane.getVerticalScrollBar().setValue(
+					scrollPane.getVerticalScrollBar().getMaximum());
 		}
 	}
 

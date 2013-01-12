@@ -2,6 +2,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.Toolkit;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -19,8 +21,11 @@ public class ConsoleWindow extends JFrame {
 	private static final long serialVersionUID = -3491204738493702095L;
 
 	private JTextArea textArea;
+	private JScrollPane scrollPane;
+	private boolean isAtBottom;
 
 	public ConsoleWindow() {
+		isAtBottom = true;
 		initializeFrame();
 
 		OutputStream out = new OutputStream() {
@@ -69,9 +74,15 @@ public class ConsoleWindow extends JFrame {
 				* padding);
 		textArea.setLocation(padding, padding);
 		textArea.setEditable(false);
-		JScrollPane scrollPane = new JScrollPane(textArea);
+		scrollPane = new JScrollPane(textArea);
 		scrollPane.setSize(textArea.getSize());
 		scrollPane.setLocation(textArea.getLocation());
+		scrollPane.getVerticalScrollBar().addAdjustmentListener(
+				new AdjustmentListener() {
+					public void adjustmentValueChanged(AdjustmentEvent e) {
+						isAtBottom = e.getAdjustable().getValue() == e.getAdjustable().getMaximum();
+					}
+				});
 		panel.add(scrollPane);
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -86,6 +97,10 @@ public class ConsoleWindow extends JFrame {
 
 	public void add(String message) {
 		textArea.append("\n" + message);
+		if (isAtBottom) {
+			scrollPane.getVerticalScrollBar().setValue(
+					scrollPane.getVerticalScrollBar().getMaximum());
+		}
 	}
 
 }

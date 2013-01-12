@@ -26,6 +26,11 @@ public class NetObject implements Serializable {
 	public NetObject() {
 	}
 
+	public NetObject(int type,int type2) {
+		this.type = type;
+		this.type2 = type2;
+	}
+	
 	public NetObject(int type,int type2,double num) { // version id auth
 		this.type = type;
 		this.type2 = type2;
@@ -38,10 +43,17 @@ public class NetObject implements Serializable {
 		string = s;
 	}
 	
-	public NetObject(int type,int type2,boolean b) { // reply whether name is available or not
+	public NetObject(int type,int type2,boolean b) { // reply whether name is available or not; join chat confirmation/denial
 		this.type = type;
 		this.type2 = type2;
 		bool = b;
+	}
+	
+	public NetObject (int type,int type2,boolean b,String s) { // reply whether name is available or not;
+		this.type = type;
+		this.type2 = type2;
+		bool = b;
+		string = s;
 	}
 	
 	public NetObject(int type,String s) {// name availability check, sending a chat message

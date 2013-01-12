@@ -2,6 +2,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.Toolkit;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -20,8 +22,11 @@ public class ObservationWindow extends JFrame {
 	}
 	
 	private JTextArea textArea;
+	private JScrollPane scrollPane;
+	private boolean isAtBottom;
 	
 	public ObservationWindow() {
+		isAtBottom = true;
 		initializeFrame();
 	}
 	
@@ -48,9 +53,17 @@ public class ObservationWindow extends JFrame {
 		textArea.setSize(panelDims.width - 2*padding,panelDims.height - 2*padding);
 		textArea.setLocation(padding,padding);
 		textArea.setEditable(false);
-		JScrollPane scrollPane = new JScrollPane(textArea);
+		scrollPane = new JScrollPane(textArea);
 		scrollPane.setSize(textArea.getSize());
 		scrollPane.setLocation(textArea.getLocation());
+		scrollPane.getVerticalScrollBar().addAdjustmentListener(
+				new AdjustmentListener() {
+					public void adjustmentValueChanged(AdjustmentEvent e) {
+						isAtBottom = e.getAdjustable().getValue() == e.getAdjustable().getMaximum();
+						System.out.println("Scroller is "+isAtBottom);
+					}
+				});
+		scrollPane.getVerticalScrollBar().setValue(scrollPane.getVerticalScrollBar().getMaximum());
 		panel.add(scrollPane);
 		
 		
@@ -66,7 +79,11 @@ public class ObservationWindow extends JFrame {
 	}
 	
 	public void add(String message) {
-		textArea.append("\n"+message);
+		textArea.append("\n" + message);
+		if (isAtBottom) {
+			scrollPane.getVerticalScrollBar().setValue(
+					scrollPane.getVerticalScrollBar().getMaximum());
+		}
 	}
 
 }

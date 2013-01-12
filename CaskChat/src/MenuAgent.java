@@ -15,11 +15,15 @@ public class MenuAgent implements ConnectionListener {
 		connection.start();
 	}
 	
-	private void authenticate(NetObject o) {
-		if (o == null)
+	private void authenticate(NetObject n) {
+		switch (n.type2) {
+		case NetObject.VERSION_ID:
 			connection.send(new NetObject(NetObject.AUTHENTICATE,NetObject.VERSION_ID,Parameters.VERSION_ID));
-		else if (o.type2 == NetObject.PASSWORD)
+			break;
+		case NetObject.PASSWORD:
 			connection.send(new NetObject(NetObject.AUTHENTICATE,NetObject.PASSWORD,Parameters.PASSWORD));
+			break;
+		}
 			
 	}
 
@@ -71,7 +75,7 @@ public class MenuAgent implements ConnectionListener {
 
 	@Override
 	public void hasConnected() {
-		authenticate(null);
+		// do nothing
 	}
 
 	@Override

@@ -19,6 +19,7 @@ public class ClientAgent implements ConnectionListener {
 		isInChat = false;
 		hasName = false;
 		id = idCount++;
+		name = "NoName";
 		connection = new Connection(client);
 		connection.addConnectionListener(this);
 		connection.start();
@@ -76,7 +77,7 @@ public class ClientAgent implements ConnectionListener {
 	}
 	
 	private void checkNameAvailability(NetObject n) {
-		connection.send(new NetObject(NetObject.ACKNOWLEDGE,NetObject.NAME_AVAIL,manager.isNameAvailable(n.string)));
+		connection.send(new NetObject(NetObject.ACKNOWLEDGE,NetObject.NAME_AVAIL,manager.isNameAvailable(n.string),n.string));
 	}
 
 	private void close() {
@@ -98,14 +99,15 @@ public class ClientAgent implements ConnectionListener {
 		switch (n.type2) {
 		case NetObject.VERSION_ID:
 			if (n.decimal == Parameters.VERSION_ID)
-				connection.send(new NetObject(NetObject.PASSWORD));
+				connection.send(new NetObject(NetObject.AUTHENTICATE,NetObject.PASSWORD));
 			else
 				connection.close();
 			break;
 		case NetObject.PASSWORD:
-			if (n.string.compareTo(Parameters.PASSWORD) == 0)
+			if (n.string.compareTo(Parameters.PASSWORD) == 0) {
 				isVerified = true;
-			else
+				manager.statusMessage(id, name, "Client "+id+" is verified");
+			} else
 				connection.close();
 			break;
 		}
@@ -113,15 +115,12 @@ public class ClientAgent implements ConnectionListener {
 
 	@Override
 	public void statusMessage(String s) {
-		if (hasName)
-			manager.statusMessage(id, name, s);
-		else
-			manager.statusMessage(id, "NoName", s);
+		manager.statusMessage(id, name, s);
 	}
 
 	@Override
 	public void hasConnected() {
-		// do nothing
+		connection.send(new NetObject(NetObject.AUTHENTICATE,NetObject.VERSION_ID));
 	}
 
 	@Override

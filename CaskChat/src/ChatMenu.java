@@ -93,6 +93,7 @@ public class ChatMenu extends JFrame {
 				joinChat();
 			}
 		});
+		joinButton.setEnabled(false);
 		panel.add(joinButton);
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -109,6 +110,7 @@ public class ChatMenu extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				agent.connect();
+				timer.stop();
 				timer = new Timer(CHECK_DELAY,new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
@@ -166,9 +168,10 @@ public class ChatMenu extends JFrame {
 	}
 	
 	public void nameConfirmed(String s,boolean isAvail) {
-		if (name.compareTo(s) == 0) {
+		if (s.compareTo(nameField.getText()) == 0) {
 			nameStatus.setText((isAvail)?"Name available!":"Name unavailable");
 			joinButton.setEnabled(isAvail);
+			name = s;
 		}
 	}
 	
