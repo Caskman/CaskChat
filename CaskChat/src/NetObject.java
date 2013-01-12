@@ -1,6 +1,12 @@
+import java.io.Serializable;
 
-public class NetObject {
 
+public class NetObject implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 107740576713098336L;
 	public static final int AUTHENTICATE = 0;
 	public static final int VERSION_ID = 1;
 	public static final int PASSWORD = 2;

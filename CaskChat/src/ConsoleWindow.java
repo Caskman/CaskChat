@@ -2,46 +2,45 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.AdjustmentListener;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
-public class ChatWindow extends JFrame {
+public class ConsoleWindow extends JFrame {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -2845291333313278477L;
-
-	public static void main(String[] args) {
-		new ChatWindow();
-	}
+	private static final long serialVersionUID = -3491204738493702095L;
 
 	private JTextArea textArea;
-	private JTextField chatBar;
-	private ChatAgent agent;
-	private boolean isFirst;
 
-	public ChatWindow() {
-		isFirst = true;
+	public ConsoleWindow() {
 		initializeFrame();
-	}
 
-	public void setChatName(String name) {
-		this.setTitle(name);
-	}
+		OutputStream out = new OutputStream() {
+			@Override
+			public void write(final int b) throws IOException {
+				textArea.append(String.valueOf((char) b));
+			}
 
-	public void setAgent(ChatAgent c) {
-		agent = c;
+			@Override
+			public void write(byte[] b, int off, int len) throws IOException {
+				textArea.append(new String(b, off, len));
+			}
+
+			@Override
+			public void write(byte[] b) throws IOException {
+				write(b, 0, b.length);
+			}
+		};
+		System.setOut(new PrintStream(out, true));
+		System.setErr(new PrintStream(out, true));
 	}
 
 	private void initializeFrame() {
@@ -62,39 +61,18 @@ public class ChatWindow extends JFrame {
 		panel.setMaximumSize(panelDims);
 		panel.setMinimumSize(panelDims);
 
-		chatBar = new JTextField();
-		chatBar.setSize(panelDims.width - 2 * padding, 20);
-
 		int textMargin = 3;
 		textArea = new JTextArea();
 		textArea.setMargin(new Insets(textMargin, textMargin, textMargin,
 				textMargin));
-		textArea.setSize(panelDims.width - 2 * padding, panelDims.height - 3
-				* padding - chatBar.getHeight());
+		textArea.setSize(panelDims.width - 2 * padding, panelDims.height - 2
+				* padding);
 		textArea.setLocation(padding, padding);
 		textArea.setEditable(false);
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		scrollPane.setSize(textArea.getSize());
 		scrollPane.setLocation(textArea.getLocation());
-		scrollPane.getVerticalScrollBar().addAdjustmentListener(
-				new AdjustmentListener() {
-					public void adjustmentValueChanged(AdjustmentEvent e) {
-						e.getAdjustable().setValue(
-								e.getAdjustable().getMaximum());
-					}
-				});
 		panel.add(scrollPane);
-
-		chatBar.setLocation(padding, textArea.getX() + textArea.getHeight()
-				+ padding);
-		chatBar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				agent.sendText(chatBar.getText());
-				chatBar.setText("");
-			}
-		});
-		panel.add(chatBar);
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
@@ -104,16 +82,10 @@ public class ChatWindow extends JFrame {
 		setResizable(false);
 		setLocationRelativeTo(null);
 		this.setVisible(true);
-
 	}
 
-	public void addMessage(String message) {
-		if (!isFirst)
-			textArea.append("\n" + message);
-		else {
-			textArea.append(message);
-			isFirst = false;
-		}
+	public void add(String message) {
+		textArea.append("\n" + message);
 	}
 
 }

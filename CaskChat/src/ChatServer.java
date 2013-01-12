@@ -29,6 +29,7 @@ public class ChatServer {
 	private ClientManager manager;
 	
 	public ChatServer() {
+		new ConsoleWindow().setTitle("CaskChat Server Console");
 		try {
 			server = new ServerSocket(Parameters.port);
 		} catch (IOException e) {

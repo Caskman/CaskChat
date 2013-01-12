@@ -33,6 +33,7 @@ public class ChatMenu extends JFrame {
 	private MenuAgent agent;
 	
 	public ChatMenu() {
+		new ConsoleWindow().setTitle("CaskChat Client");
 		initialize();
 	}
 	
@@ -112,6 +113,7 @@ public class ChatMenu extends JFrame {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						checkNameAvailability(name);
+						timer.stop();
 					}
 				});
 			}
