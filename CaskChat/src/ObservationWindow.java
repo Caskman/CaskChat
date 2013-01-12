@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.AdjustmentEvent;
@@ -59,8 +60,8 @@ public class ObservationWindow extends JFrame {
 		scrollPane.getVerticalScrollBar().addAdjustmentListener(
 				new AdjustmentListener() {
 					public void adjustmentValueChanged(AdjustmentEvent e) {
-						isAtBottom = e.getAdjustable().getValue() == e.getAdjustable().getMaximum();
-						System.out.println("Scroller is "+isAtBottom);
+						isAtBottom = e.getAdjustable().getValue() == e.getAdjustable().getMaximum() - e.getAdjustable().getVisibleAmount();
+						System.out.println(getTitle()+": Scroller is "+isAtBottom + " at "+e.getAdjustable().getValue()+"; max is "+e.getAdjustable().getMaximum()+" length is "+e.getAdjustable().getVisibleAmount());
 					}
 				});
 		scrollPane.getVerticalScrollBar().setValue(scrollPane.getVerticalScrollBar().getMaximum());
@@ -81,9 +82,17 @@ public class ObservationWindow extends JFrame {
 	public void add(String message) {
 		textArea.append("\n" + message);
 		if (isAtBottom) {
-			scrollPane.getVerticalScrollBar().setValue(
-					scrollPane.getVerticalScrollBar().getMaximum());
+			EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					setScroll2Bottom();
+				}
+			});
 		}
+	}
+	
+	private void setScroll2Bottom() {
+		scrollPane.getVerticalScrollBar().setValue(
+				scrollPane.getVerticalScrollBar().getMaximum());
 	}
 
 }
