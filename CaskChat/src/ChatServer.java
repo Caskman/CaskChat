@@ -26,7 +26,6 @@ public class ChatServer {
 	
 
 	private ServerSocket server;
-	private ChatWindow chatWindow;
 	private ClientManager manager;
 	
 	public ChatServer() {
@@ -36,9 +35,7 @@ public class ChatServer {
 			System.out.println("Error trying to open serversocket");
 			e.printStackTrace();
 		}
-		chatWindow = new ChatWindow();
-		chatWindow.setTitle("CaskChat Server");
-		manager = new ClientManager(chatWindow);
+		manager = new ClientManager();
 		new ServerPortListener(server,manager).start();
 	}
 	

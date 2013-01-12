@@ -1,16 +1,12 @@
 import java.awt.EventQueue;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JOptionPane;
 
 public class Connection extends Thread  {
 
@@ -19,7 +15,6 @@ public class Connection extends Thread  {
 	private boolean isOpen;
 	private ObjectInputStream in;
 	private ObjectOutputStream out;
-	private String name;
 	private List<ConnectionListener> listeners;
 
 	public Connection() {

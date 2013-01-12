@@ -6,7 +6,9 @@ public class NetObject {
 	public static final int PASSWORD = 2;
 	public static final int NAME_AVAIL = 3;
 	public static final int ACKNOWLEDGE = 4;
-	public static final int CHAT_MESSAGE = 4;
+	public static final int CHAT_MESSAGE = 5;
+	public static final int NAME_SET = 6;
+	public static final int JOIN_CHAT = 7;
 	
 	public int type;
 	public int type2;

@@ -41,6 +41,18 @@ public class MenuAgent implements ConnectionListener {
 		case NetObject.NAME_AVAIL:
 			chatMenu.nameConfirmed(n.string,n.bool);
 			break;
+		case NetObject.NAME_SET:
+			if (n.bool)
+				connection.send(new NetObject(NetObject.JOIN_CHAT));
+			else
+				chatMenu.joinDeniedCuzName();
+			break;
+		case NetObject.JOIN_CHAT:
+			if (n.bool)
+				chatMenu.joinGranted();
+			else
+				chatMenu.joinDenied();
+			break;
 		}
 	}
 	
@@ -66,5 +78,10 @@ public class MenuAgent implements ConnectionListener {
 	public void connectionClosed(String errorMessage) {
 		chatMenu.connectionStatus(errorMessage);
 	}
+	
+	public void joinChat(String name) {
+		connection.send(new NetObject(NetObject.NAME_SET,name));
+	}
+	
 	
 }

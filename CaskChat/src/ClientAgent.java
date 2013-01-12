@@ -4,7 +4,6 @@ import java.net.Socket;
 public class ClientAgent implements ConnectionListener {
 
 	private static int idCount = 0;
-	private boolean flag;
 	private String name;
 	private Connection connection;
 	private boolean isVerified;
@@ -19,7 +18,6 @@ public class ClientAgent implements ConnectionListener {
 		isVerified = false;
 		isInChat = false;
 		hasName = false;
-		flag = true;
 		id = idCount++;
 		connection = new Connection(client);
 		connection.addConnectionListener(this);
@@ -50,6 +48,30 @@ public class ClientAgent implements ConnectionListener {
 		case NetObject.NAME_AVAIL:
 			checkNameAvailability(n);
 			break;
+		case NetObject.NAME_SET:
+			setName(n);
+			break;
+		case NetObject.JOIN_CHAT:
+			joinChat();
+			break;
+		}
+	}
+	
+	private void joinChat() {
+		if (isVerified && hasName) {
+			isInChat = true;
+			connection.send(new NetObject(NetObject.ACKNOWLEDGE,NetObject.JOIN_CHAT,true));
+		} else 
+			connection.send(new NetObject(NetObject.ACKNOWLEDGE,NetObject.JOIN_CHAT,false));
+	}
+	
+	private void setName(NetObject n) {
+		if (manager.isNameAvailable(n.string)) {
+			name = n.string;
+			connection.send(new NetObject(NetObject.ACKNOWLEDGE,NetObject.NAME_SET,true));
+			hasName = true;
+		} else {
+			connection.send(new NetObject(NetObject.ACKNOWLEDGE,NetObject.NAME_SET,false));
 		}
 	}
 	

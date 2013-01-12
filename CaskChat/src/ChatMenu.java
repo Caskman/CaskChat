@@ -1,9 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,6 +17,10 @@ import javax.swing.event.DocumentListener;
 
 public class ChatMenu extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4097860442432321662L;
 	private static int CHECK_DELAY = 1000;
 	private static int STARTUP_CONNECT_DELAY = 2000;
 	
@@ -119,12 +120,29 @@ public class ChatMenu extends JFrame {
 	}
 	
 	private void joinChat() {
+		nameField.setEditable(false);
+		agent.joinChat(name);
+	}
+	
+	public void joinDeniedCuzName() {
+		nameField.setEditable(true);
+		nameStatus.setText("Name unavailable");
+	}
+	
+	public void joinDenied() {
+		nameField.setEditable(true);
+		statusBox.setText("Unable to join for unknown reasons");
+	}
+	
+	public void joinGranted() {
 		ChatWindow w = new ChatWindow();
 		Connection c = agent.getConnection();
+		c.removeConnectionListener(agent);
 		ChatAgent a = new ChatAgent();
 		a.setConnection(c);
 		w.setAgent(a);
 		a.setChatWindow(w);
+		dispose();
 	}
 	
 	public void connectionStatus(String s) {
@@ -163,5 +181,6 @@ public class ChatMenu extends JFrame {
 		}
 		return true;
 	}
+	
 	
 }

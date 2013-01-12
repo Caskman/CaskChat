@@ -1,8 +1,3 @@
-import java.awt.EventQueue;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,13 +6,15 @@ import java.util.List;
 public class ClientManager {
 	
 	private List<ClientAgent> handlers;
-	private String chatlog;
-	private ChatWindow chatWindow;
+	private ObservationWindow statusWindow;
+	private ObservationWindow chatWindow;
 
-	public ClientManager(ChatWindow chatWindow) {
+	public ClientManager() {
 		handlers = new LinkedList<ClientAgent>();
-		chatlog = "Chat Begins!";
-		this.chatWindow = chatWindow;
+		statusWindow = new ObservationWindow();
+		statusWindow.setTitle("CaskChat Server Status");
+		chatWindow = new ObservationWindow();
+		chatWindow.setTitle("CaskChat Server");
 	}
 	
 	public void addClient(Socket client) {
@@ -39,26 +36,24 @@ public class ClientManager {
 	public void addChatMessage(String name,String message) {
 		String toSend = name+": "+message;
 		sendToAllBut(name,toSend);
-		chatlog += "\n"+toSend;
-		chatWindow.addMessage(toSend);
+		chatWindow.add(toSend);
 	}
 	
 	public void clientDisconnected(String name,String errorMessage) {
 		String message = name+" disconnected: " + errorMessage;
 		sendToAllBut(name,message);
-		chatlog += "\n"+message;
-		chatWindow.addMessage(message);
+		chatWindow.add(message);
 	}
 	
 	public void clientJoined(String name) {
 		String message = name+" joined chat.";
 		sendToAllBut(name,message);
-		chatlog += "\n"+message;
-		chatWindow.addMessage(message);
+		chatWindow.add(message);
 	}
 	
 	public void statusMessage(int id,String name,String message) {
-		chatlog += "\n"+"Client "+id+" "+name+": "+message;
+		String statusMessage = "Client "+id+" "+name+": "+message;
+		statusWindow.add(statusMessage);
 	}
 
 	public boolean isNameAvailable(String s) {
