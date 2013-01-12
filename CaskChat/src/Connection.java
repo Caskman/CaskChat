@@ -66,7 +66,7 @@ public class Connection extends Thread  {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				for (ConnectionListener l : listeners) {
-					l.relay(o);
+					l.objectReceived(o);
 				}
 			}
 		});
@@ -189,7 +189,7 @@ public class Connection extends Thread  {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				for (ConnectionListener l : listeners) {
-					l.relayStatus(s1);
+					l.statusMessage(s1);
 				}
 			}
 		});

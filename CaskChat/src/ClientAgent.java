@@ -38,7 +38,7 @@ public class ClientAgent implements ConnectionListener {
 	}
 
 	@Override
-	public void relay(Object o) {
+	public void objectReceived(Object o) {
 		NetObject n = (NetObject) o;
 		switch (n.type) {
 		case NetObject.AUTHENTICATE:
@@ -90,7 +90,7 @@ public class ClientAgent implements ConnectionListener {
 	}
 
 	@Override
-	public void relayStatus(String s) {
+	public void statusMessage(String s) {
 		if (hasName)
 			manager.statusMessage(id, name, s);
 		else

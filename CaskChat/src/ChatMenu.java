@@ -153,7 +153,7 @@ public class ChatMenu extends JFrame {
 	}
 	
 	private void checkNameAvailability(String s) {
-		agent.checkNameAvailability(s);
+		agent.requestNameAvailability(s);
 	}
 	
 	private boolean checkName(String s) {

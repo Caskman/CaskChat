@@ -24,7 +24,7 @@ public class MenuAgent implements ConnectionListener {
 	}
 
 	@Override
-	public void relay(Object o) {
+	public void objectReceived(Object o) {
 		NetObject n = (NetObject)o;
 		switch (n.type) {
 		case NetObject.AUTHENTICATE:
@@ -44,7 +44,7 @@ public class MenuAgent implements ConnectionListener {
 		}
 	}
 	
-	public void checkNameAvailability(String name) {
+	public void requestNameAvailability(String name) {
 		connection.send(new NetObject(NetObject.NAME_AVAIL,name));
 	}
 
@@ -53,7 +53,7 @@ public class MenuAgent implements ConnectionListener {
 	}
 	
 	@Override
-	public void relayStatus(String s) {
+	public void statusMessage(String s) {
 		chatMenu.connectionStatus(s);
 	}
 
@@ -61,7 +61,6 @@ public class MenuAgent implements ConnectionListener {
 	public void hasConnected() {
 		authenticate(null);
 	}
-
 
 	@Override
 	public void connectionClosed(String errorMessage) {
