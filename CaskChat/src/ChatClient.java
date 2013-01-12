@@ -18,11 +18,11 @@ public class ChatClient {
 	private ChatWindow chatWindow;
 
 	public ChatClient() {
-		chatWindow = new ChatWindow();
-		ChatConnection c = new ChatConnection();
-		c.setChatWindow(chatWindow);
-		chatWindow.setChatConnection(c);
-		c.start();
+//		chatWindow = new ChatWindow();
+//		ChatConnection c = new ChatConnection();
+//		c.setChatWindow(chatWindow);
+//		chatWindow.setChatConnection(c);
+//		c.start();
 	}
 
 	

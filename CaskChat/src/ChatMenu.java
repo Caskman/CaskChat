@@ -29,7 +29,7 @@ public class ChatMenu extends JFrame {
 	private JTextField nameField;
 	private String name;
 	private Timer timer;
-	private ChatConnection clientListener;
+	private MenuAgent agent;
 	
 	public ChatMenu() {
 		initialize();
@@ -40,7 +40,7 @@ public class ChatMenu extends JFrame {
 		double ratio = (1.0+Math.sqrt(5.0))/2.0;
 		Dimension screenDims = Toolkit.getDefaultToolkit().getScreenSize();
 		
-		JPanel panel = new AntiAliasPanel();
+		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		double width = screenDims.width/4;
 		Dimension panelDims = new Dimension((int)(width),(int)(width*ratio));
@@ -62,7 +62,19 @@ public class ChatMenu extends JFrame {
 		nameField = new JTextField();
 		nameField.setSize(100,20);
 		nameField.setLocation((panelDims.width - nameField.getWidth())/2,panelDims.height/2);
-		nameField.getDocument().addDocumentListener(new NameListener());
+		nameField.getDocument().addDocumentListener(new DocumentListener() {
+			public void changedUpdate(DocumentEvent e) {
+				nameChanged(e);
+			}
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				nameChanged(e);
+			}
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				nameChanged(e);
+			}
+		});
 		panel.add(nameField);
 		
 		nameStatus = new JLabel();
@@ -73,6 +85,12 @@ public class ChatMenu extends JFrame {
 		joinButton = new JButton("Join Chat");
 		joinButton.setSize(100,20);
 		joinButton.setLocation((panelDims.width - joinButton.getWidth())/2,3*panelDims.height/4);
+		joinButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				joinChat();
+			}
+		});
 		panel.add(joinButton);
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -84,15 +102,33 @@ public class ChatMenu extends JFrame {
 		setLocationRelativeTo(null);
 		this.setVisible(true);
 		
+		agent = new MenuAgent(this);
 		timer = new Timer(STARTUP_CONNECT_DELAY,new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				clientListener.start();
-				timer = new Timer(CHECK_DELAY,new NameListener());
+				agent.connect();
+				timer = new Timer(CHECK_DELAY,new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						checkNameAvailability(name);
+					}
+				});
 			}
 		});
 		timer.start();
-		clientListener = new ChatConnection();
+	}
+	
+	private void joinChat() {
+		ChatWindow w = new ChatWindow();
+		Connection c = agent.getConnection();
+		ChatAgent a = new ChatAgent();
+		a.setConnection(c);
+		w.setAgent(a);
+		a.setChatWindow(w);
+	}
+	
+	public void connectionStatus(String s) {
+		statusBox.setText(s);
 	}
 	
 	private void nameChanged(DocumentEvent e) {
@@ -109,8 +145,15 @@ public class ChatMenu extends JFrame {
 		}
 	}
 	
+	public void nameConfirmed(String s,boolean isAvail) {
+		if (name.compareTo(s) == 0) {
+			nameStatus.setText((isAvail)?"Name available!":"Name unavailable");
+			joinButton.setEnabled(isAvail);
+		}
+	}
+	
 	private void checkNameAvailability(String s) {
-		clientListener.send(Parameters.CHECK_NAME_COMMAND+s);
+		agent.checkNameAvailability(s);
 	}
 	
 	private boolean checkName(String s) {
@@ -121,30 +164,4 @@ public class ChatMenu extends JFrame {
 		return true;
 	}
 	
-	private class NameListener implements DocumentListener,ActionListener {
-		@Override
-		public void changedUpdate(DocumentEvent e) {
-			nameChanged(e);
-		}
-		@Override
-		public void insertUpdate(DocumentEvent e) {
-			nameChanged(e);
-		}
-		@Override
-		public void removeUpdate(DocumentEvent e) {
-			nameChanged(e);
-		}
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			checkNameAvailability(name);
-		}
-	}
-	
-	private class AntiAliasPanel extends JPanel {
-		@Override
-		public void paintComponent(Graphics g) {
-			((Graphics2D)g).setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
-		}
-
-	}
 }

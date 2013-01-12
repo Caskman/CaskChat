@@ -20,10 +20,10 @@ public class ChatWindow extends JFrame {
 	
 	private JTextArea textArea;
 	private JTextField chatBar;
-	private ChatConnection connection;
+	private ChatAgent agent;
 	private String name;
 	private boolean isFirst;
-
+	
 	public ChatWindow() {
 		isFirst = true;
 		initializeFrame();
@@ -34,8 +34,8 @@ public class ChatWindow extends JFrame {
 		this.setTitle(name);
 	}
 	
-	public void setChatConnection(ChatConnection t) {
-		connection = t;
+	public void setAgent(ChatAgent c) {
+		agent = c;
 	}
 	
 	private void initializeFrame() {
@@ -72,8 +72,7 @@ public class ChatWindow extends JFrame {
 		chatBar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (connection != null)
-					connection.sendText(chatBar.getText());
+				agent.sendText(chatBar.getText());
 				chatBar.setText("");
 			}
 		});
