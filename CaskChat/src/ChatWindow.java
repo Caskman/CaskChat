@@ -86,6 +86,8 @@ public class ChatWindow extends JFrame {
 			}
 		});
 		
+		
+		
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		double height = screenDims.height / 2;

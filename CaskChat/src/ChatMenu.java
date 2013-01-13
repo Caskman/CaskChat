@@ -5,6 +5,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.awt.event.WindowFocusListener;
 import java.awt.event.WindowListener;
 
 import javax.swing.ImageIcon;
@@ -78,6 +79,16 @@ public class ChatMenu extends JFrame {
 			@Override
 			public void windowOpened(WindowEvent e) {
 				agent.connect();
+			}
+		});
+		addWindowFocusListener(new WindowFocusListener() {
+			@Override
+			public void windowGainedFocus(WindowEvent arg0) {
+				nameField.requestFocusInWindow();
+			}
+			@Override
+			public void windowLostFocus(WindowEvent arg0) {
+				
 			}
 		});
 		
