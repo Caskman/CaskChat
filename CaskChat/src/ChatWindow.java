@@ -121,6 +121,8 @@ public class ChatWindow extends JFrame {
 				* padding - chatBar.getHeight());
 		textArea.setLocation(padding, padding);
 		textArea.setEditable(false);
+		textArea.setLineWrap(true);
+		textArea.setWrapStyleWord(true);
 		
 		messageScrollPane = new JScrollPane(textArea);
 		messageScrollPane.setSize(textArea.getSize());
@@ -189,7 +191,7 @@ public class ChatWindow extends JFrame {
 	
 	private void messageEntered() {
 		agent.sendText(chatBar.getText());
-		addMessage("You: "+chatBar.getText());
+		addMessage("You:: "+chatBar.getText());
 		chatBar.setText("");
 	}
 
