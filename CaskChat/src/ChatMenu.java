@@ -5,13 +5,12 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.AbstractAction;
-import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -62,14 +61,15 @@ public class ChatMenu extends JFrame {
 		panel.setMinimumSize(panelDims);
 		
 		JLabel title = new JLabel("CaskChat");
-		title.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
-		title.setSize(100,30);
+		title.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
+		title.setSize(140,25);
 		title.setLocation((panelDims.width - title.getWidth())/2,10);
 		panel.add(title);
 		
 		statusBox = new JLabel();
+		statusBox.setHorizontalAlignment(SwingConstants.CENTER);
 		statusBox.setSize(3*panelDims.width/4,20);
-		statusBox.setLocation((panelDims.width - statusBox.getWidth())/2,title.getX() + title.getHeight() + padding);
+		statusBox.setLocation((panelDims.width - statusBox.getWidth())/2,title.getY() + title.getHeight() + padding);
 		panel.add(statusBox);
 		
 		nameField = new JTextField();
@@ -92,8 +92,9 @@ public class ChatMenu extends JFrame {
 		panel.add(nameField);
 		
 		nameStatus = new JLabel();
+		nameStatus.setHorizontalAlignment(SwingConstants.CENTER);
 		nameStatus.setSize(100,20);
-		nameStatus.setLocation((panelDims.width - nameStatus.getWidth())/2,nameField.getX() + nameField.getHeight() + padding);
+		nameStatus.setLocation((panelDims.width - nameStatus.getWidth())/2,nameField.getY() + nameField.getHeight() + padding);
 		panel.add(nameStatus);
 		
 		joinButton = new JButton("Join Chat");
