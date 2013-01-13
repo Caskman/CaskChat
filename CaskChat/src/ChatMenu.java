@@ -32,6 +32,7 @@ public class ChatMenu extends JFrame {
 	private String name;
 	private MenuAgent agent;
 	private ActionListener joinAction;
+	private boolean joinChatPressed;
 	
 	public ChatMenu() {
 //		new ConsoleWindow().setTitle("CaskChat Client");
@@ -40,6 +41,8 @@ public class ChatMenu extends JFrame {
 	
 	private void initialize() {
 		int padding = 5;
+		joinChatPressed = false;
+		agent = new MenuAgent(this);
 		double ratio = (1.0+Math.sqrt(5.0))/2.0;
 		Dimension screenDims = Toolkit.getDefaultToolkit().getScreenSize();
 		
@@ -48,6 +51,8 @@ public class ChatMenu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (joinButton.isEnabled())
 					joinChat();
+				else
+					joinChatPressed = true;
 			}
 		};
 		
@@ -137,7 +142,6 @@ public class ChatMenu extends JFrame {
 		setLocationRelativeTo(null);
 		this.setVisible(true);
 		
-		agent = new MenuAgent(this);
 	}
 	
 	public void iconImageReceived(ImageIcon i) {
@@ -199,6 +203,10 @@ public class ChatMenu extends JFrame {
 			nameStatus.setText((isAvail)?"Name available!":"Name unavailable");
 			name = s;
 			joinButton.setEnabled(isAvail);
+			if (isAvail && joinChatPressed)
+				joinChat();
+			else
+				joinChatPressed = false;
 		} else 
 			joinButton.setEnabled(false);
 		
