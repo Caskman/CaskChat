@@ -13,7 +13,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.Timer;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -24,8 +23,6 @@ public class ChatMenu extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = -4097860442432321662L;
-	private static int CHECK_DELAY = 1000;
-	private static int STARTUP_CONNECT_DELAY = 1000;
 	
 	private JLabel statusBox;
 	private JLabel nameStatus;
