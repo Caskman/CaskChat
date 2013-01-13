@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowFocusListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -90,12 +92,21 @@ public class ChatWindow extends JFrame {
 		chatBar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				agent.sendText(chatBar.getText());
-				chatBar.setText("");
+				messageEntered();
 			}
 		});
 		panel.add(chatBar);
 
+		addWindowFocusListener(new WindowFocusListener() {
+			@Override
+			public void windowGainedFocus(WindowEvent e) {
+				chatBar.requestFocusInWindow();
+			}
+			@Override
+			public void windowLostFocus(WindowEvent e) {
+				
+			}
+		});
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
 		add(panel, BorderLayout.CENTER);
@@ -105,6 +116,12 @@ public class ChatWindow extends JFrame {
 		setLocationRelativeTo(null);
 		this.setVisible(true);
 
+	}
+	
+	private void messageEntered() {
+		agent.sendText(chatBar.getText());
+		addMessage("You: "+chatBar.getText());
+		chatBar.setText("");
 	}
 
 	public void addMessage(String message) {

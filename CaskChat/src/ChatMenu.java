@@ -5,6 +5,8 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,7 +24,7 @@ public class ChatMenu extends JFrame {
 	 */
 	private static final long serialVersionUID = -4097860442432321662L;
 	private static int CHECK_DELAY = 1000;
-	private static int STARTUP_CONNECT_DELAY = 2000;
+	private static int STARTUP_CONNECT_DELAY = 1000;
 	
 	private JLabel statusBox;
 	private JLabel nameStatus;
@@ -31,6 +33,7 @@ public class ChatMenu extends JFrame {
 	private String name;
 	private Timer timer;
 	private MenuAgent agent;
+	private ActionListener joinAction;
 	
 	public ChatMenu() {
 		new ConsoleWindow().setTitle("CaskChat Client");
@@ -41,6 +44,14 @@ public class ChatMenu extends JFrame {
 		int padding = 5;
 		double ratio = (1.0+Math.sqrt(5.0))/2.0;
 		Dimension screenDims = Toolkit.getDefaultToolkit().getScreenSize();
+		
+		joinAction = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (joinButton.isEnabled())
+					joinChat();
+			}
+		};
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
@@ -66,17 +77,18 @@ public class ChatMenu extends JFrame {
 		nameField.setLocation((panelDims.width - nameField.getWidth())/2,panelDims.height/2);
 		nameField.getDocument().addDocumentListener(new DocumentListener() {
 			public void changedUpdate(DocumentEvent e) {
-				nameChanged(e);
+				nameChanged();
 			}
 			@Override
 			public void insertUpdate(DocumentEvent e) {
-				nameChanged(e);
+				nameChanged();
 			}
 			@Override
 			public void removeUpdate(DocumentEvent e) {
-				nameChanged(e);
+				nameChanged();
 			}
 		});
+		nameField.addActionListener(joinAction);
 		panel.add(nameField);
 		
 		nameStatus = new JLabel();
@@ -87,12 +99,7 @@ public class ChatMenu extends JFrame {
 		joinButton = new JButton("Join Chat");
 		joinButton.setSize(100,20);
 		joinButton.setLocation((panelDims.width - joinButton.getWidth())/2,3*panelDims.height/4);
-		joinButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				joinChat();
-			}
-		});
+		joinButton.addActionListener(joinAction);
 		joinButton.setEnabled(false);
 		panel.add(joinButton);
 		
@@ -111,13 +118,6 @@ public class ChatMenu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				agent.connect();
 				timer.stop();
-				timer = new Timer(CHECK_DELAY,new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						checkNameAvailability(name);
-						timer.stop();
-					}
-				});
 			}
 		});
 		timer.start();
@@ -146,6 +146,7 @@ public class ChatMenu extends JFrame {
 		a.setConnection(c);
 		w.setAgent(a);
 		a.setChatWindow(w);
+		w.setTitle(name);
 		dispose();
 	}
 	
@@ -153,8 +154,9 @@ public class ChatMenu extends JFrame {
 		statusBox.setText(s);
 	}
 	
-	private void nameChanged(DocumentEvent e) {
+	private void nameChanged() {
 		timer.stop();
+		joinButton.setEnabled(false);
 		String text = nameField.getText().trim();
 		if (text.compareTo("") == 0) {
 			nameStatus.setText("");
@@ -163,20 +165,23 @@ public class ChatMenu extends JFrame {
 		if (checkName(text)) {
 			name = text;
 			timer.restart();
-			nameStatus.setText("Valid");
-		}
+			nameStatus.setText("");
+		} else 
+			nameStatus.setText("Invalid Name");
 	}
 	
 	public void nameConfirmed(String s,boolean isAvail) {
 		if (s.compareTo(nameField.getText()) == 0) {
 			nameStatus.setText((isAvail)?"Name available!":"Name unavailable");
-			joinButton.setEnabled(isAvail);
+			joinButton.setEnabled(true);
 			name = s;
-		}
+		} else
+			joinButton.setEnabled(false);
 	}
 	
 	private void checkNameAvailability(String s) {
-		agent.requestNameAvailability(s);
+		if (agent.isConnected())
+			agent.requestNameAvailability(s);
 	}
 	
 	private boolean checkName(String s) {
@@ -187,5 +192,17 @@ public class ChatMenu extends JFrame {
 		return true;
 	}
 	
+	public void hasConnected() {
+		timer = new Timer(CHECK_DELAY,new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				checkNameAvailability(name);
+				timer.stop();
+			}
+		});
+		if (nameField.getText().compareTo("") != 0) {
+			nameChanged();
+		}
+	}
 	
 }

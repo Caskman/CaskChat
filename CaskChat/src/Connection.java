@@ -35,11 +35,11 @@ public class Connection extends Thread  {
 	@Override
 	public void run() {
 		initialize();
-		Object message = null;
+//		Object message = null;
 
 		while (flag) {
 			try {
-				message = in.readObject();
+				relayMessage(in.readObject());
 			} catch (IOException e) {
 				System.out.println("Error trying to read line from server");
 				statusMessage("Disconnected from Server");
@@ -49,9 +49,9 @@ public class Connection extends Thread  {
 				statusMessage("Error finding class of object from stream");
 				e.printStackTrace();
 			}
-			if (message == null)
-				continue;
-			relayMessage(message);
+//			if (message == null)
+//				continue;
+//			relayMessage(message);
 		}
 
 	}

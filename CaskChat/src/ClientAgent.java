@@ -62,6 +62,7 @@ public class ClientAgent implements ConnectionListener {
 		if (isVerified && hasName) {
 			isInChat = true;
 			connection.send(new NetObject(NetObject.ACKNOWLEDGE,NetObject.JOIN_CHAT,true));
+			manager.clientJoined(name);
 		} else 
 			connection.send(new NetObject(NetObject.ACKNOWLEDGE,NetObject.JOIN_CHAT,false));
 	}

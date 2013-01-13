@@ -3,9 +3,11 @@ public class MenuAgent implements ConnectionListener {
 
 	private Connection connection;
 	private ChatMenu chatMenu;
+	private boolean isConnected;
 	
 	public MenuAgent(ChatMenu c) {
 		chatMenu = c;
+		isConnected = false;
 	}
 	
 	public void connect() {
@@ -75,7 +77,8 @@ public class MenuAgent implements ConnectionListener {
 
 	@Override
 	public void hasConnected() {
-		// do nothing
+		chatMenu.hasConnected();
+		isConnected = true;
 	}
 
 	@Override
@@ -87,5 +90,8 @@ public class MenuAgent implements ConnectionListener {
 		connection.send(new NetObject(NetObject.NAME_SET,name));
 	}
 	
+	public boolean isConnected() {
+		return isConnected;
+	}
 	
 }
