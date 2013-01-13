@@ -163,6 +163,7 @@ public class ChatMenu extends JFrame {
 		w.setAgent(a);
 		a.setChatWindow(w);
 		w.setTitle(name);
+		w.addMessage("Welcome to CaskChat!");
 		dispose();
 	}
 	
