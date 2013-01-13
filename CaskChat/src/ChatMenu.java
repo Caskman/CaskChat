@@ -133,6 +133,12 @@ public class ChatMenu extends JFrame {
 		joinButton.setEnabled(false);
 		panel.add(joinButton);
 		
+		JLabel versionLabel = new JLabel("v"+Parameters.VERSION_ID);
+		versionLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		versionLabel.setSize(100,20);
+		versionLabel.setLocation((panelDims.width - versionLabel.getWidth())/2,panelDims.height - versionLabel.getHeight());
+		panel.add(versionLabel);
+		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
 		add(panel,BorderLayout.CENTER);
