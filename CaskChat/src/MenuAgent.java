@@ -1,3 +1,5 @@
+import javax.swing.ImageIcon;
+
 
 public class MenuAgent implements ConnectionListener {
 
@@ -39,7 +41,14 @@ public class MenuAgent implements ConnectionListener {
 		case NetObject.ACKNOWLEDGE:
 			acknowledge(n);
 			break;
+		case NetObject.ICON_IMAGE:
+			iconImage(n);
+			break;
 		}
+	}
+	
+	private void iconImage(NetObject n) {
+		chatMenu.iconImageReceived((ImageIcon)n.object);
 	}
 	
 	private void acknowledge(NetObject n) {
@@ -93,5 +102,8 @@ public class MenuAgent implements ConnectionListener {
 	public boolean isConnected() {
 		return isConnected;
 	}
+	
+	
+	
 	
 }

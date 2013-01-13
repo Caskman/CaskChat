@@ -8,7 +8,7 @@ public class Launcher {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-
+		Parameters.load();
 		try {
 			// Set System L&F
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());

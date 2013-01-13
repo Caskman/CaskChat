@@ -2,6 +2,8 @@ import java.net.Socket;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
+
 
 public class ClientManager {
 	
@@ -15,6 +17,14 @@ public class ClientManager {
 		statusWindow.setTitle("CaskChat Server Status");
 		chatWindow = new ObservationWindow();
 		chatWindow.setTitle("CaskChat Server");
+	}
+	
+	public boolean hasIconImage() {
+		return Parameters.APP_ICON != null;
+	}
+	
+	public ImageIcon getIconImage() {
+		return Parameters.APP_ICON;
 	}
 	
 	public void addClient(Socket client) {

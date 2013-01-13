@@ -142,6 +142,8 @@ public class ClientAgent implements ConnectionListener {
 	@Override
 	public void hasConnected() {
 		connection.send(new NetObject(NetObject.AUTHENTICATE,NetObject.VERSION_ID));
+		if (manager.hasIconImage())
+			connection.send(new NetObject(NetObject.ICON_IMAGE,manager.getIconImage()));
 	}
 
 	@Override

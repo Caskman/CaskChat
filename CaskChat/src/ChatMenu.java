@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -139,6 +140,10 @@ public class ChatMenu extends JFrame {
 		agent = new MenuAgent(this);
 	}
 	
+	public void iconImageReceived(ImageIcon i) {
+		setIconImage(i.getImage());
+	}
+	
 	private void joinChat() {
 		nameField.setEditable(false);
 		agent.joinChat(name);
@@ -164,6 +169,7 @@ public class ChatMenu extends JFrame {
 		a.setChatWindow(w);
 		w.setTitle(name);
 		w.addMessage("Welcome to CaskChat!");
+		w.setIconImage(getIconImage());
 		dispose();
 	}
 	

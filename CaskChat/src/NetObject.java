@@ -16,6 +16,7 @@ public class NetObject implements Serializable {
 	public static final int NAME_SET = 6;
 	public static final int JOIN_CHAT = 7;
 	public static final int CHAT_PERSON_LIST_UPDATE = 8;
+	public static final int ICON_IMAGE = 9;
 	
 	public int type;
 	public int type2;
