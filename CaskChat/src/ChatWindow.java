@@ -163,7 +163,8 @@ public class ChatWindow extends JFrame {
 		setLayout(new BorderLayout());
 		add(panel, BorderLayout.CENTER);
 		pack();
-		setSize(getWidth() - 10, getHeight() - 10);
+		if (System.getProperty("os.name").contains("Windows"))
+			setSize(getWidth() - 10, getHeight() - 10);
 		setResizable(false);
 		setLocationRelativeTo(null);
 		this.setVisible(true);
