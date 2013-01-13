@@ -189,9 +189,15 @@ public class ChatWindow extends JFrame {
 	}
 	
 	private void messageEntered() {
-		agent.sendText(chatBar.getText());
-		addMessage("You:: "+chatBar.getText());
-		chatBar.setText("");
+		if (checkMessage(chatBar.getText())) {
+			agent.sendText(chatBar.getText());
+			addMessage("You:: "+chatBar.getText());
+			chatBar.setText("");
+		}
+	}
+	
+	private boolean checkMessage(String s) {
+		return s.split(" ").length != 0;
 	}
 
 	public void addMessage(String message) {
