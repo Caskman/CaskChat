@@ -55,7 +55,19 @@ public class ClientAgent implements ConnectionListener {
 		case NetObject.JOIN_CHAT:
 			joinChat();
 			break;
+		case NetObject.CHAT_PERSON_LIST_UPDATE:
+			chatPersonListUpdate();
+			break;
 		}
+	}
+	
+	public void updateChatPersonList(ChatPerson[] list) {
+		connection.send(new NetObject(NetObject.CHAT_PERSON_LIST_UPDATE,list));
+	}
+	
+	private void chatPersonListUpdate() {
+		ChatPerson[] chatList = manager.getChatPersonList();
+		connection.send(new NetObject(NetObject.CHAT_PERSON_LIST_UPDATE,chatList));
 	}
 	
 	private void joinChat() {
@@ -85,17 +97,6 @@ public class ClientAgent implements ConnectionListener {
 		manager.removeAgent(this);
 	}
 
-	private void chatMessageReceived(NetObject n) {
-		if (isInChat) {
-			final String message = n.string;
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					manager.addChatMessage(name, message);
-				}
-			});
-		}
-	}
-
 	private void authenticate(NetObject n) {
 		switch (n.type2) {
 		case NetObject.VERSION_ID:
@@ -114,6 +115,25 @@ public class ClientAgent implements ConnectionListener {
 		}
 	}
 
+	public boolean isInChat() {
+		return isInChat;
+	}
+	
+	public ChatPerson getChatPerson() {
+		return new ChatPerson(name);
+	}
+	
+	private void chatMessageReceived(NetObject n) {
+		if (isInChat) {
+			final String message = n.string;
+			EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					manager.addChatMessage(name, message);
+				}
+			});
+		}
+	}
+
 	@Override
 	public void statusMessage(String s) {
 		manager.statusMessage(id, name, s);
@@ -126,9 +146,9 @@ public class ClientAgent implements ConnectionListener {
 
 	@Override
 	public void connectionClosed(String errorMessage) {
+		close();
 		if (isInChat)
 			manager.clientDisconnected(name,errorMessage);
-		close();
 	}
 
 }

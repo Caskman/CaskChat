@@ -158,7 +158,7 @@ public class ChatMenu extends JFrame {
 		ChatWindow w = new ChatWindow();
 		Connection c = agent.getConnection();
 		c.removeConnectionListener(agent);
-		ChatAgent a = new ChatAgent();
+		ChatAgent a = new ChatAgent(name);
 		a.setConnection(c);
 		w.setAgent(a);
 		a.setChatWindow(w);

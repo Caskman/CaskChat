@@ -3,8 +3,14 @@ public class ChatAgent implements ConnectionListener {
 
 	private ChatWindow chatWindow;
 	private Connection connection;
+	private String name;
 	
-	public ChatAgent() {
+	public ChatAgent(String name) {
+		this.name = name;
+	}
+	
+	public String getName() {
+		return name;
 	}
 	
 	public void setChatWindow(ChatWindow c) {
@@ -20,12 +26,19 @@ public class ChatAgent implements ConnectionListener {
 		connection.send(new NetObject(NetObject.CHAT_MESSAGE,s));
 	}
 
+	public void requestChatPersonList() {
+		connection.send(new NetObject(NetObject.CHAT_PERSON_LIST_UPDATE));
+	}
+	
 	@Override
 	public void objectReceived(Object o) {
 		NetObject n = (NetObject)o;
 		switch (n.type) {
 		case NetObject.CHAT_MESSAGE:
 			chatWindow.addMessage(n.string);
+			break;
+		case NetObject.CHAT_PERSON_LIST_UPDATE:
+			chatWindow.updateChatPersonList((ChatPerson[])n.object);
 			break;
 		}
 	}

@@ -43,12 +43,23 @@ public class ClientManager {
 		String message = name+" disconnected: " + errorMessage;
 		sendToAllBut(name,message);
 		chatWindow.add(message);
+		updateClientChatPersonLists();
 	}
 	
 	public void clientJoined(String name) {
 		String message = name+" joined chat.";
 		sendToAllBut(name,message);
 		chatWindow.add(message);
+		
+		updateClientChatPersonLists();
+	}
+	
+	private void updateClientChatPersonLists() {
+		ChatPerson[] list = getChatPersonList();
+		
+		for (ClientAgent a : handlers) {
+			a.updateChatPersonList(list);
+		}
 	}
 	
 	public void statusMessage(int id,String name,String message) {
@@ -63,6 +74,17 @@ public class ClientManager {
 		}
 		return true;
 	}
+	
+	public ChatPerson[] getChatPersonList() {
+		List<ChatPerson> list = new LinkedList<ChatPerson>();
+		
+		for (ClientAgent a : handlers) {
+			if (a.isInChat())
+				list.add(a.getChatPerson());
+		}
+		return list.toArray(new ChatPerson[list.size()]);
+	}
+	
 	
 	
 }

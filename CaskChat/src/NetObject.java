@@ -15,6 +15,7 @@ public class NetObject implements Serializable {
 	public static final int CHAT_MESSAGE = 5;
 	public static final int NAME_SET = 6;
 	public static final int JOIN_CHAT = 7;
+	public static final int CHAT_PERSON_LIST_UPDATE = 8;
 	
 	public int type;
 	public int type2;
@@ -22,6 +23,7 @@ public class NetObject implements Serializable {
 	public String string;
 	public String string2;
 	public boolean bool;
+	public Object object;
 	
 	public NetObject() {
 	}
@@ -61,6 +63,10 @@ public class NetObject implements Serializable {
 		string = s;
 	}
 	
+	public NetObject(int type,Object o) {// sending a list of people in chat
+		this.type = type;
+		object = o;
+	}
 	
 	public NetObject(int type) {
 		this.type = type;
