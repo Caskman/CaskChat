@@ -44,7 +44,7 @@ public class ClientManager {
 	}
 	
 	public void addChatMessage(String name,String message) {
-		String toSend = name+": "+message;
+		String toSend = name+":: "+message;
 		sendToAllBut(name,toSend);
 		chatWindow.add(toSend);
 	}
