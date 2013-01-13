@@ -179,13 +179,14 @@ public class ChatMenu extends JFrame {
 			nameStatus.setText("");
 			return;
 		}
-		if (checkName(text)) {
+		String message = null;
+		if ((message = checkName(text)) == null) {
 			name = text;
 //			timer.restart();
 			nameStatus.setText("");
 			checkNameAvailability(name);
 		} else 
-			nameStatus.setText("Invalid Name");
+			nameStatus.setText(message);
 	}
 	
 	public void nameConfirmed(String s,boolean isAvail) {
@@ -201,12 +202,14 @@ public class ChatMenu extends JFrame {
 			agent.requestNameAvailability(s);
 	}
 	
-	private boolean checkName(String s) {
+	private String checkName(String s) {
+		if (s.length() > 15)
+			return "Name is too long";
 		for (int i = 0; i < s.length(); i++) {
-			if (s.charAt(i) == ' ')
-				return false;
+			if (s.charAt(i) != ' ')
+				return null;
 		}
-		return true;
+		return "Must have a character";
 	}
 	
 	public void hasConnected() {
