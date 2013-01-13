@@ -1,3 +1,4 @@
+import java.awt.EventQueue;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -32,7 +33,13 @@ import java.net.Socket;
 				if (potentialClient == null)
 					continue;
 				
-				manager.addClient(potentialClient);
+				final Socket socket = potentialClient;
+				EventQueue.invokeLater(new Runnable() {
+					@Override
+					public void run() {
+						manager.addClient(socket);
+					}
+				});
 				
 			}
 		}
