@@ -4,6 +4,8 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -30,7 +32,6 @@ public class ChatMenu extends JFrame {
 	private JButton joinButton;
 	private JTextField nameField;
 	private String name;
-	private Timer timer;
 	private MenuAgent agent;
 	private ActionListener joinAction;
 	
@@ -51,6 +52,31 @@ public class ChatMenu extends JFrame {
 					joinChat();
 			}
 		};
+		
+		addWindowListener(new WindowListener() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+			}
+			@Override
+			public void windowClosed(WindowEvent e) {
+			}
+			@Override
+			public void windowClosing(WindowEvent e) {
+			}
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+			}
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+			}
+			@Override
+			public void windowIconified(WindowEvent e) {
+			}
+			@Override
+			public void windowOpened(WindowEvent e) {
+				agent.connect();
+			}
+		});
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
@@ -114,14 +140,6 @@ public class ChatMenu extends JFrame {
 		this.setVisible(true);
 		
 		agent = new MenuAgent(this);
-		timer = new Timer(STARTUP_CONNECT_DELAY,new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				agent.connect();
-				timer.stop();
-			}
-		});
-		timer.start();
 	}
 	
 	private void joinChat() {
@@ -156,7 +174,7 @@ public class ChatMenu extends JFrame {
 	}
 	
 	private void nameChanged() {
-		timer.stop();
+//		timer.stop();
 		joinButton.setEnabled(false);
 		String text = nameField.getText().trim();
 		if (text.compareTo("") == 0) {
@@ -165,8 +183,9 @@ public class ChatMenu extends JFrame {
 		}
 		if (checkName(text)) {
 			name = text;
-			timer.restart();
+//			timer.restart();
 			nameStatus.setText("");
+			checkNameAvailability(name);
 		} else 
 			nameStatus.setText("Invalid Name");
 	}
@@ -194,13 +213,6 @@ public class ChatMenu extends JFrame {
 	}
 	
 	public void hasConnected() {
-		timer = new Timer(CHECK_DELAY,new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				checkNameAvailability(name);
-				timer.stop();
-			}
-		});
 		if (nameField.getText().compareTo("") != 0) {
 			nameChanged();
 		}
