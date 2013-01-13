@@ -1,11 +1,10 @@
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.AdjustmentListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.WindowEvent;
@@ -19,6 +18,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.DefaultCaret;
 
 public class ChatWindow extends JFrame {
 
@@ -31,17 +31,17 @@ public class ChatWindow extends JFrame {
 		new ChatWindow();
 	}
 
+	private static final int AUTO_SCROLL_SENSITIVITY = 20;
+	
 	private JTextArea textArea;
 	private JTextField chatBar;
 	private ChatAgent agent;
 	private boolean isFirst;
 	private JScrollPane messageScrollPane;
-	private boolean isAtBottom;
 	private JList<ChatPerson> chatListBox;
 	private ChatListModel chatList;
 
 	public ChatWindow() {
-		isAtBottom = true;
 		isFirst = true;
 		initializeFrame();
 	}
@@ -123,16 +123,13 @@ public class ChatWindow extends JFrame {
 		textArea.setEditable(false);
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
+		textArea.setFocusable(false);
+		textArea.getCaret().setVisible(false);
+		((DefaultCaret)textArea.getCaret()).setUpdatePolicy(DefaultCaret.NEVER_UPDATE);
 		
 		messageScrollPane = new JScrollPane(textArea);
 		messageScrollPane.setSize(textArea.getSize());
 		messageScrollPane.setLocation(textArea.getLocation());
-		messageScrollPane.getVerticalScrollBar().addAdjustmentListener(
-				new AdjustmentListener() {
-					public void adjustmentValueChanged(AdjustmentEvent e) {
-						isAtBottom = e.getAdjustable().getValue() == e.getAdjustable().getMaximum();
-					}
-				});
 		panel.add(messageScrollPane);
 
 		chatBar.setLocation(padding, textArea.getX() + textArea.getHeight()
@@ -196,16 +193,31 @@ public class ChatWindow extends JFrame {
 	}
 
 	public void addMessage(String message) {
+		boolean scrollDown = isChatAtBottom();
 		if (!isFirst)
 			textArea.append("\n" + message);
 		else {
 			textArea.append(message);
 			isFirst = false;
 		}
-		if (isAtBottom) {
-			messageScrollPane.getVerticalScrollBar().setValue(
-					messageScrollPane.getVerticalScrollBar().getMaximum());
+		if (scrollDown) {
+			moveChat2Bottom();
 		}
+	}
+	
+	private boolean isChatAtBottom() {
+		int barBottomPosition = messageScrollPane.getVerticalScrollBar().getValue() + messageScrollPane.getVerticalScrollBar().getModel().getExtent();
+		int threshold = messageScrollPane.getVerticalScrollBar().getMaximum() - AUTO_SCROLL_SENSITIVITY;
+		return barBottomPosition >= threshold;
+	}
+	
+	private void moveChat2Bottom() {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				messageScrollPane.getVerticalScrollBar().setValue(
+						messageScrollPane.getVerticalScrollBar().getMaximum());
+			}
+		});
 	}
 
 }
