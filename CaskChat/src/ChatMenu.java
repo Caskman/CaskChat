@@ -116,7 +116,7 @@ public class ChatMenu extends JFrame {
 		
 		nameStatus = new JLabel();
 		nameStatus.setHorizontalAlignment(SwingConstants.CENTER);
-		nameStatus.setSize(100,20);
+		nameStatus.setSize(150,20);
 		nameStatus.setLocation((panelDims.width - nameStatus.getWidth())/2,nameField.getY() + nameField.getHeight() + padding);
 		panel.add(nameStatus);
 		
@@ -172,9 +172,9 @@ public class ChatMenu extends JFrame {
 	}
 	
 	private void nameChanged() {
-//		timer.stop();
 		joinButton.setEnabled(false);
 		String text = nameField.getText().trim();
+		name = text;
 		if (text.compareTo("") == 0) {
 			nameStatus.setText("");
 			return;
@@ -182,7 +182,6 @@ public class ChatMenu extends JFrame {
 		String message = null;
 		if ((message = checkName(text)) == null) {
 			name = text;
-//			timer.restart();
 			nameStatus.setText("");
 			checkNameAvailability(name);
 		} else 
@@ -190,11 +189,13 @@ public class ChatMenu extends JFrame {
 	}
 	
 	public void nameConfirmed(String s,boolean isAvail) {
-		if (s.compareTo(nameField.getText()) == 0) {
+		if (s.compareTo(name) == 0) {
 			nameStatus.setText((isAvail)?"Name available!":"Name unavailable");
 			name = s;
-		}
-		joinButton.setEnabled(isAvail);
+			joinButton.setEnabled(isAvail);
+		} else 
+			joinButton.setEnabled(false);
+		
 	}
 	
 	private void checkNameAvailability(String s) {
@@ -203,13 +204,19 @@ public class ChatMenu extends JFrame {
 	}
 	
 	private String checkName(String s) {
+		if (s.compareTo("") == 0)
+			return "";
 		if (s.length() > 15)
 			return "Name is too long";
 		for (int i = 0; i < s.length(); i++) {
-			if (s.charAt(i) != ' ')
-				return null;
+			if (!checkChar(s.charAt(i)))
+				return "Only letters or numbers";
 		}
-		return "Must have a character";
+		return null;
+	}
+	
+	private boolean checkChar(char c) {
+		return (c >= 48 && c <= 57) || (c >= 65 && c <= 90) || (c >= 97 && c <= 122) || c == ' ';
 	}
 	
 	public void hasConnected() {
