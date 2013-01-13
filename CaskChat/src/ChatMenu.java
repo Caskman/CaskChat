@@ -36,7 +36,7 @@ public class ChatMenu extends JFrame {
 	private ActionListener joinAction;
 	
 	public ChatMenu() {
-		new ConsoleWindow().setTitle("CaskChat Client");
+//		new ConsoleWindow().setTitle("CaskChat Client");
 		initialize();
 	}
 	
@@ -193,10 +193,9 @@ public class ChatMenu extends JFrame {
 	public void nameConfirmed(String s,boolean isAvail) {
 		if (s.compareTo(nameField.getText()) == 0) {
 			nameStatus.setText((isAvail)?"Name available!":"Name unavailable");
-			joinButton.setEnabled(true);
 			name = s;
-		} else
-			joinButton.setEnabled(false);
+		}
+		joinButton.setEnabled(isAvail);
 	}
 	
 	private void checkNameAvailability(String s) {
