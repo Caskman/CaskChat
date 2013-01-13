@@ -10,7 +10,7 @@ public class Parameters {
 	public static final int port = 2126;
 	public static final String SERVER = "70.176.84.115";
 	public static final String PASSWORD = "6972126";
-	public static final double VERSION_ID = 1.100;
+	public static final double VERSION_ID = 1.150;
 	public static ImageIcon APP_ICON;
 	public static final String rootDir = System.getProperty("user.home") + File.separator + "CaskChat" + File.separator;
 	
