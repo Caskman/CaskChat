@@ -1,0 +1,4 @@
+try and separate client-disconnection events from client-leaving-chat events 
+add whisper
+add ability to change ip address of server that the client connects to
+add reconnect button to chatmenu
