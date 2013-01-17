@@ -1,0 +1,46 @@
+
+option java_package = "protocols";
+option java_outer_classname = "ChatProtocol";
+
+enum MessageType {
+	AUTHENTICATION = 0;
+	NAME_AVAIL = 1;
+	REPLY = 2;
+	CHAT_MESSAGE = 3;
+	NAME_SET = 4;
+	JOIN_CHAT = 5;
+	LIST_UPDATE = 6;
+	ICON_IMAGE = 7;
+}
+
+message Authentication {
+	required double versionID = 1;
+	optional string password = 2;
+}
+
+message ChatPerson {
+	required string name = 1;
+}
+
+message Image {
+	required bytes imageData = 1;
+}
+
+message ChatList {
+	repeated ChatPerson person = 1;
+}
+	
+message Message {
+	
+	
+	
+	required MessageType type = 1;
+	
+	optional string string = 2;
+	optional ChatList chatList = 3;
+	optional Authentication authentication = 4;
+	optional Image image = 5;
+	
+	
+}
+
