@@ -6,6 +6,8 @@ import javax.swing.ListModel;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 
+import protocols.ChatProtocol.ChatPerson;
+
 
 public class ChatListModel implements ListModel<ChatPerson> {
 
@@ -17,11 +19,9 @@ public class ChatListModel implements ListModel<ChatPerson> {
 		listeners = new LinkedList<ListDataListener>();
 	}
 
-	public void updateList(ChatPerson[] array) {
+	public void updateList(List<ChatPerson> betterList) {
 		list.clear();
-		for (ChatPerson p : array) {
-			list.add(p);
-		}
+		list.addAll(betterList);
 		notifyListeners(new ListDataEvent(this,ListDataEvent.CONTENTS_CHANGED,0,list.size()-1));
 	}
 	

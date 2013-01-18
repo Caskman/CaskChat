@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
+import protocols.ChatProtocol.ChatPerson;
+
 
 public class ClientManager {
 	
@@ -65,7 +67,7 @@ public class ClientManager {
 	}
 	
 	private void updateClientChatPersonLists() {
-		ChatPerson[] list = getChatPersonList();
+		List<ChatPerson> list = getChatPersonList();
 		
 		for (ClientAgent a : handlers) {
 			a.updateChatPersonList(list);
@@ -85,14 +87,14 @@ public class ClientManager {
 		return true;
 	}
 	
-	public ChatPerson[] getChatPersonList() {
+	public List<ChatPerson> getChatPersonList() {
 		List<ChatPerson> list = new LinkedList<ChatPerson>();
 		
 		for (ClientAgent a : handlers) {
 			if (a.isInChat())
 				list.add(a.getChatPerson());
 		}
-		return list.toArray(new ChatPerson[list.size()]);
+		return list;
 	}
 	
 	

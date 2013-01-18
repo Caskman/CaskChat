@@ -1,4 +1,13 @@
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+
+import com.google.protobuf.InvalidProtocolBufferException;
+
+import protocols.ChatProtocol.*;
 
 
 public class MenuAgent implements ConnectionListener {
@@ -19,60 +28,88 @@ public class MenuAgent implements ConnectionListener {
 		connection.start();
 	}
 	
-	private void authenticate(NetObject n) {
-		switch (n.type2) {
-		case NetObject.VERSION_ID:
-			connection.send(new NetObject(NetObject.AUTHENTICATE,NetObject.VERSION_ID,Parameters.VERSION_ID));
-			break;
-		case NetObject.PASSWORD:
-			connection.send(new NetObject(NetObject.AUTHENTICATE,NetObject.PASSWORD,Parameters.PASSWORD));
-			break;
-		}
+	private void authenticate(NetMessage n) {
+		connection.send(NetMessage.newBuilder()
+				.setType(MessageType.AUTHENTICATION)
+				.setAuthentication(Authentication.newBuilder()
+						.setVersionID(Parameters.VERSION_ID)
+						.setPassword(Parameters.PASSWORD))
+				.build().toByteArray());
+//		switch (n.type2) {
+//		case NetObject.VERSION_ID:
+//			connection.send(new NetObject(NetObject.AUTHENTICATE,NetObject.VERSION_ID,Parameters.VERSION_ID));
+//			break;
+//		case NetObject.PASSWORD:
+//			connection.send(new NetObject(NetObject.AUTHENTICATE,NetObject.PASSWORD,Parameters.PASSWORD));
+//			break;
+//		}
 			
 	}
 
 	@Override
 	public void objectReceived(Object o) {
-		NetObject n = (NetObject)o;
-		switch (n.type) {
-		case NetObject.AUTHENTICATE:
-			authenticate(n);
-			break;
-		case NetObject.ACKNOWLEDGE:
-			acknowledge(n);
-			break;
-		case NetObject.ICON_IMAGE:
-			iconImage(n);
-			break;
+		NetMessage n;
+		try {
+			n = NetMessage.parseFrom((byte[])o);
+			switch (n.getType()) {
+			case AUTHENTICATION:
+				authenticate(n);
+				break;
+			case REPLY:
+				acknowledge(n);
+				break;
+			case ICON_IMAGE:
+				iconImage(n);
+				break;
+			default:
+				System.err.println("Unhandled NetMessage in MenuAgent");
+				break;
+			}
+		} catch (InvalidProtocolBufferException e) {
+			e.printStackTrace();
 		}
 	}
 	
-	private void iconImage(NetObject n) {
-		chatMenu.iconImageReceived((ImageIcon)n.object);
+	private void iconImage(NetMessage n) {
+		try {
+			byte[] iconData = n.getImage().getImageData().toByteArray();
+			InputStream in = new ByteArrayInputStream(iconData);
+			chatMenu.iconImageReceived(new ImageIcon(ImageIO.read(in)));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
-	private void acknowledge(NetObject n) {
-		switch (n.type2) {
-		case NetObject.NAME_AVAIL:
-			chatMenu.nameConfirmed(n.string,n.bool);
+	private void acknowledge(NetMessage n) {
+		ReplyMessage r = n.getReplyMessage();
+		switch (r.getType()) {
+		case NAME_AVAIL:
+			chatMenu.nameConfirmed(r.getString(),r.getStatus());
 			break;
-		case NetObject.NAME_SET:
-			if (n.bool)
+		case NAME_SET:
+			if (r.getStatus())
 				connection.send(new NetObject(NetObject.JOIN_CHAT));
 			else
 				chatMenu.joinDeniedCuzName();
 			break;
-		case NetObject.JOIN_CHAT:
-			if (n.bool)
+		case JOIN_CHAT:
+			if (r.getStatus())
 				chatMenu.joinGranted();
 			else
 				chatMenu.joinDenied();
+			break;
+		default:
+			System.err.println("Unhandled acknowledge case in MenuAgent");
 			break;
 		}
 	}
 	
 	public void requestNameAvailability(String name) {
-		connection.send(new NetObject(NetObject.NAME_AVAIL,name));
+		connection.send(NetMessage.newBuilder()
+				.setType(MessageType.NAME_AVAIL)
+				.setString(name)
+				.build().toByteArray());
+//		connection.send(new NetObject(NetObject.NAME_AVAIL,name));
 	}
 
 	public Connection getConnection() {
@@ -96,7 +133,11 @@ public class MenuAgent implements ConnectionListener {
 	}
 	
 	public void joinChat(String name) {
-		connection.send(new NetObject(NetObject.NAME_SET,name));
+		connection.send(NetMessage.newBuilder()
+				.setType(MessageType.NAME_SET)
+				.setString(name)
+				.build().toByteArray());
+//		connection.send(new NetObject(NetObject.NAME_SET,name));
 	}
 	
 	public boolean isConnected() {

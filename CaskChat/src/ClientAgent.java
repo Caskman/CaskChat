@@ -1,5 +1,10 @@
 import java.awt.EventQueue;
 import java.net.Socket;
+import java.util.List;
+
+import com.google.protobuf.InvalidProtocolBufferException;
+
+import protocols.ChatProtocol.*;
 
 public class ClientAgent implements ConnectionListener {
 
@@ -33,86 +38,146 @@ public class ClientAgent implements ConnectionListener {
 	}
 
 	public void sendChatMessage(String name, String message) {
-		connection.send(new NetObject(NetObject.CHAT_MESSAGE, message));
+        NetMessage.Builder netMessage = NetMessage.newBuilder()
+                .setChatMessage(ChatMessage.newBuilder().setMessage(message));
+        connection.send(netMessage.build().toByteArray());
+//        connection.send(new NetObject(NetObject.CHAT_MESSAGE, message));
 	}
 
 	@Override
 	public void objectReceived(Object o) {
-		NetObject n = (NetObject) o;
-		switch (n.type) {
-		case NetObject.AUTHENTICATE:
-			authenticate(n);
-			break;
-		case NetObject.CHAT_MESSAGE:
-			chatMessageReceived(n);
-			break;
-		case NetObject.NAME_AVAIL:
-			checkNameAvailability(n);
-			break;
-		case NetObject.NAME_SET:
-			setName(n);
-			break;
-		case NetObject.JOIN_CHAT:
-			joinChat();
-			break;
-		case NetObject.CHAT_PERSON_LIST_UPDATE:
-			chatPersonListUpdate();
-			break;
+//		NetObject n = (NetObject) o;
+		NetMessage n;
+		try {
+			n = NetMessage.parseFrom((byte[])o);
+			switch (n.getType()) {
+			case AUTHENTICATION:
+				authenticate(n);
+				break;
+			case CHAT_MESSAGE:
+				chatMessageReceived(n);
+				break;
+			case NAME_AVAIL:
+				checkNameAvailability(n);
+				break;
+			case NAME_SET:
+				setName(n);
+				break;
+			case JOIN_CHAT:
+				joinChat();
+				break;
+			case LIST_UPDATE:
+				chatPersonListUpdate();
+				break;
+			default:
+				System.err.println("Unhandled NetMessage in ClientAgent");
+				break;
+			}
+		} catch (InvalidProtocolBufferException e) {
+			e.printStackTrace();
 		}
 	}
 	
-	public void updateChatPersonList(ChatPerson[] list) {
-		connection.send(new NetObject(NetObject.CHAT_PERSON_LIST_UPDATE,list));
+	public void updateChatPersonList(List<ChatPerson> list) {
+//		List<ChatPerson> arrayList = new ArrayList<ChatPerson>(list.length);
+//		Collections.addAll(new ArrayList<ChatPerson>(list.length),list);
+		NetMessage.Builder n = NetMessage.newBuilder()
+				.setType(MessageType.LIST_UPDATE)
+				.setChatList(ChatList.newBuilder().addAllPerson(list));
+		connection.send(n.build().toByteArray());
+//		connection.send(new NetObject(NetObject.CHAT_PERSON_LIST_UPDATE,list));
 	}
 	
 	private void chatPersonListUpdate() {
-		ChatPerson[] chatList = manager.getChatPersonList();
-		connection.send(new NetObject(NetObject.CHAT_PERSON_LIST_UPDATE,chatList));
+		updateChatPersonList(manager.getChatPersonList());
+//		connection.send(new NetObject(NetObject.CHAT_PERSON_LIST_UPDATE,chatList));
 	}
 	
 	private void joinChat() {
 		if (isVerified && hasName) {
 			isInChat = true;
-			connection.send(new NetObject(NetObject.ACKNOWLEDGE,NetObject.JOIN_CHAT,true));
+			
+			connection.send(NetMessage.newBuilder()
+					.setType(MessageType.REPLY)
+					.setReplyMessage(ReplyMessage.newBuilder()
+							.setType(MessageType.JOIN_CHAT)
+							.setStatus(true))
+					.build().toByteArray());
+//			connection.send(new NetObject(NetObject.ACKNOWLEDGE,NetObject.JOIN_CHAT,true));
 			manager.clientJoined(name);
 		} else 
-			connection.send(new NetObject(NetObject.ACKNOWLEDGE,NetObject.JOIN_CHAT,false));
+			connection.send(NetMessage.newBuilder()
+					.setType(MessageType.REPLY)
+					.setReplyMessage(ReplyMessage.newBuilder()
+							.setType(MessageType.JOIN_CHAT)
+							.setStatus(false))
+					.build().toByteArray());
+//			connection.send(new NetObject(NetObject.ACKNOWLEDGE,NetObject.JOIN_CHAT,false));
 	}
 	
-	private void setName(NetObject n) {
-		if (manager.isNameAvailable(n.string)) {
-			name = n.string;
-			connection.send(new NetObject(NetObject.ACKNOWLEDGE,NetObject.NAME_SET,true));
+	private void setName(NetMessage n) {
+		String proposed = n.getString();
+		if (manager.isNameAvailable(proposed)) {
+			name = proposed;
+			connection.send(NetMessage.newBuilder()
+					.setType(MessageType.REPLY)
+					.setReplyMessage(ReplyMessage.newBuilder()
+							.setType(MessageType.NAME_SET)
+							.setStatus(true))
+					.build().toByteArray());
+//			connection.send(new NetObject(NetObject.ACKNOWLEDGE,NetObject.NAME_SET,true));
 			hasName = true;
 		} else {
+			connection.send(NetMessage.newBuilder()
+					.setType(MessageType.REPLY)
+					.setReplyMessage(ReplyMessage.newBuilder()
+							.setType(MessageType.NAME_SET)
+							.setStatus(false))
+					.build().toByteArray());
 			connection.send(new NetObject(NetObject.ACKNOWLEDGE,NetObject.NAME_SET,false));
 		}
 	}
 	
-	private void checkNameAvailability(NetObject n) {
-		connection.send(new NetObject(NetObject.ACKNOWLEDGE,NetObject.NAME_AVAIL,manager.isNameAvailable(n.string),n.string));
+	private void checkNameAvailability(NetMessage n) {
+		connection.send(NetMessage.newBuilder()
+				.setType(MessageType.REPLY)
+				.setReplyMessage(ReplyMessage.newBuilder()
+						.setType(MessageType.NAME_AVAIL)
+						.setStatus(manager.isNameAvailable(n.getString()))
+						.setString(n.getString()))
+				.build().toByteArray());
+//		connection.send(new NetObject(NetObject.ACKNOWLEDGE,
+//				NetObject.NAME_AVAIL,
+//				manager.isNameAvailable(n.string),n.string));
 	}
 
 	private void close() {
 		manager.removeAgent(this);
 	}
 
-	private void authenticate(NetObject n) {
-		switch (n.type2) {
-		case NetObject.VERSION_ID:
-			if (n.decimal == Parameters.VERSION_ID)
-				connection.send(new NetObject(NetObject.AUTHENTICATE,NetObject.PASSWORD));
-			else
-				connection.close();
-			break;
-		case NetObject.PASSWORD:
-			if (n.string.compareTo(Parameters.PASSWORD) == 0) {
-				isVerified = true;
-				manager.statusMessage(id, name, "Client "+id+" is verified");
-			} else
-				connection.close();
-			break;
+	private void authenticate(NetMessage n) {
+		Authentication a = n.getAuthentication();
+		if (a.getVersionID() == Parameters.VERSION_ID && a.getPassword().compareTo(Parameters.PASSWORD) == 0) {
+			isVerified = true;
+			manager.statusMessage(id, name, "Client "+id+" is verified");
+		} else {
+			connection.close();
 		}
+//		switch (n.type2) {
+//		case NetObject.VERSION_ID:
+//			if (n.decimal == Parameters.VERSION_ID)
+//				connection.send(new NetObject(NetObject.AUTHENTICATE,NetObject.PASSWORD));
+//			else
+//				connection.close();
+//			break;
+//		case NetObject.PASSWORD:
+//			if (n.string.compareTo(Parameters.PASSWORD) == 0) {
+//				isVerified = true;
+//				manager.statusMessage(id, name, "Client "+id+" is verified");
+//			} else
+//				connection.close();
+//			break;
+//		}
 	}
 
 	public boolean isInChat() {
@@ -120,12 +185,12 @@ public class ClientAgent implements ConnectionListener {
 	}
 	
 	public ChatPerson getChatPerson() {
-		return new ChatPerson(name);
+		return ChatPerson.newBuilder().setName(name).build();
 	}
 	
-	private void chatMessageReceived(NetObject n) {
+	private void chatMessageReceived(NetMessage n) {
 		if (isInChat) {
-			final String message = n.string;
+			final String message = n.getString();
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
 					manager.addChatMessage(name, message);

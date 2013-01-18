@@ -10,6 +10,8 @@ import java.awt.event.FocusListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
 import java.awt.event.WindowListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -19,6 +21,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.DefaultCaret;
+
+import protocols.ChatProtocol.ChatPerson;
 
 public class ChatWindow extends JFrame {
 
@@ -171,15 +175,12 @@ public class ChatWindow extends JFrame {
 
 	}
 	
-	public void updateChatPersonList(ChatPerson[] list) {
-		ChatPerson[] betterList = new ChatPerson[list.length-1];
-		int offset = 0;
+	public void updateChatPersonList(List<ChatPerson> list) {
+		List<ChatPerson> betterList = new ArrayList<ChatPerson>(list.size()-1);
 		
-		for (int i = 0; i < list.length; i++) {
-			if (list[i].name.compareTo(agent.getName()) == 0)
-				offset = -1;
-			else
-				betterList[i+offset] = list[i];
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i).getName().compareTo(agent.getName()) != 0)
+				betterList.add(list.get(i));
 		}
 		
 		chatList.updateList(betterList);

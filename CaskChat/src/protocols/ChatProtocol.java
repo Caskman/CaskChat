@@ -1183,6 +1183,485 @@ public final class ChatProtocol {
     // @@protoc_insertion_point(class_scope:ChatPerson)
   }
 
+  public interface ChatMessageOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+
+    // required string message = 1;
+    /**
+     * <code>required string message = 1;</code>
+     */
+    boolean hasMessage();
+    /**
+     * <code>required string message = 1;</code>
+     */
+    java.lang.String getMessage();
+    /**
+     * <code>required string message = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getMessageBytes();
+  }
+  /**
+   * Protobuf type {@code ChatMessage}
+   */
+  public static final class ChatMessage extends
+      com.google.protobuf.GeneratedMessage
+      implements ChatMessageOrBuilder {
+    // Use ChatMessage.newBuilder() to construct.
+    private ChatMessage(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private ChatMessage(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final ChatMessage defaultInstance;
+    public static ChatMessage getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public ChatMessage getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private ChatMessage(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              bitField0_ |= 0x00000001;
+              message_ = input.readBytes();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return protocols.ChatProtocol.internal_static_ChatMessage_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return protocols.ChatProtocol.internal_static_ChatMessage_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              protocols.ChatProtocol.ChatMessage.class, protocols.ChatProtocol.ChatMessage.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<ChatMessage> PARSER =
+        new com.google.protobuf.AbstractParser<ChatMessage>() {
+      public ChatMessage parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ChatMessage(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ChatMessage> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    // required string message = 1;
+    public static final int MESSAGE_FIELD_NUMBER = 1;
+    private java.lang.Object message_;
+    /**
+     * <code>required string message = 1;</code>
+     */
+    public boolean hasMessage() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required string message = 1;</code>
+     */
+    public java.lang.String getMessage() {
+      java.lang.Object ref = message_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          message_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string message = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getMessageBytes() {
+      java.lang.Object ref = message_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        message_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private void initFields() {
+      message_ = "";
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      if (!hasMessage()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeBytes(1, getMessageBytes());
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, getMessageBytes());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static protocols.ChatProtocol.ChatMessage parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocols.ChatProtocol.ChatMessage parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocols.ChatProtocol.ChatMessage parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocols.ChatProtocol.ChatMessage parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocols.ChatProtocol.ChatMessage parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static protocols.ChatProtocol.ChatMessage parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static protocols.ChatProtocol.ChatMessage parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static protocols.ChatProtocol.ChatMessage parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static protocols.ChatProtocol.ChatMessage parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static protocols.ChatProtocol.ChatMessage parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(protocols.ChatProtocol.ChatMessage prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code ChatMessage}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements protocols.ChatProtocol.ChatMessageOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return protocols.ChatProtocol.internal_static_ChatMessage_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return protocols.ChatProtocol.internal_static_ChatMessage_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                protocols.ChatProtocol.ChatMessage.class, protocols.ChatProtocol.ChatMessage.Builder.class);
+      }
+
+      // Construct using protocols.ChatProtocol.ChatMessage.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        message_ = "";
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return protocols.ChatProtocol.internal_static_ChatMessage_descriptor;
+      }
+
+      public protocols.ChatProtocol.ChatMessage getDefaultInstanceForType() {
+        return protocols.ChatProtocol.ChatMessage.getDefaultInstance();
+      }
+
+      public protocols.ChatProtocol.ChatMessage build() {
+        protocols.ChatProtocol.ChatMessage result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public protocols.ChatProtocol.ChatMessage buildPartial() {
+        protocols.ChatProtocol.ChatMessage result = new protocols.ChatProtocol.ChatMessage(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.message_ = message_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof protocols.ChatProtocol.ChatMessage) {
+          return mergeFrom((protocols.ChatProtocol.ChatMessage)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(protocols.ChatProtocol.ChatMessage other) {
+        if (other == protocols.ChatProtocol.ChatMessage.getDefaultInstance()) return this;
+        if (other.hasMessage()) {
+          bitField0_ |= 0x00000001;
+          message_ = other.message_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasMessage()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        protocols.ChatProtocol.ChatMessage parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (protocols.ChatProtocol.ChatMessage) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      // required string message = 1;
+      private java.lang.Object message_ = "";
+      /**
+       * <code>required string message = 1;</code>
+       */
+      public boolean hasMessage() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required string message = 1;</code>
+       */
+      public java.lang.String getMessage() {
+        java.lang.Object ref = message_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          message_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string message = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getMessageBytes() {
+        java.lang.Object ref = message_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          message_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string message = 1;</code>
+       */
+      public Builder setMessage(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        message_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string message = 1;</code>
+       */
+      public Builder clearMessage() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        message_ = getDefaultInstance().getMessage();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string message = 1;</code>
+       */
+      public Builder setMessageBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        message_ = value;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:ChatMessage)
+    }
+
+    static {
+      defaultInstance = new ChatMessage(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:ChatMessage)
+  }
+
   public interface ImageOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
 
@@ -2276,7 +2755,7 @@ public final class ChatProtocol {
     // @@protoc_insertion_point(class_scope:ChatList)
   }
 
-  public interface MessageOrBuilder
+  public interface ReplyMessageOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
 
     // required .MessageType type = 1;
@@ -2289,20 +2768,669 @@ public final class ChatProtocol {
      */
     protocols.ChatProtocol.MessageType getType();
 
-    // optional string string = 2;
+    // optional bool status = 2;
     /**
-     * <code>optional string string = 2;</code>
+     * <code>optional bool status = 2;</code>
+     */
+    boolean hasStatus();
+    /**
+     * <code>optional bool status = 2;</code>
+     */
+    boolean getStatus();
+
+    // optional string string = 3;
+    /**
+     * <code>optional string string = 3;</code>
      */
     boolean hasString();
     /**
-     * <code>optional string string = 2;</code>
+     * <code>optional string string = 3;</code>
      */
     java.lang.String getString();
     /**
-     * <code>optional string string = 2;</code>
+     * <code>optional string string = 3;</code>
      */
     com.google.protobuf.ByteString
         getStringBytes();
+  }
+  /**
+   * Protobuf type {@code ReplyMessage}
+   */
+  public static final class ReplyMessage extends
+      com.google.protobuf.GeneratedMessage
+      implements ReplyMessageOrBuilder {
+    // Use ReplyMessage.newBuilder() to construct.
+    private ReplyMessage(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private ReplyMessage(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final ReplyMessage defaultInstance;
+    public static ReplyMessage getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public ReplyMessage getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private ReplyMessage(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              int rawValue = input.readEnum();
+              protocols.ChatProtocol.MessageType value = protocols.ChatProtocol.MessageType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(1, rawValue);
+              } else {
+                bitField0_ |= 0x00000001;
+                type_ = value;
+              }
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              status_ = input.readBool();
+              break;
+            }
+            case 26: {
+              bitField0_ |= 0x00000004;
+              string_ = input.readBytes();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return protocols.ChatProtocol.internal_static_ReplyMessage_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return protocols.ChatProtocol.internal_static_ReplyMessage_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              protocols.ChatProtocol.ReplyMessage.class, protocols.ChatProtocol.ReplyMessage.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<ReplyMessage> PARSER =
+        new com.google.protobuf.AbstractParser<ReplyMessage>() {
+      public ReplyMessage parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ReplyMessage(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ReplyMessage> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    // required .MessageType type = 1;
+    public static final int TYPE_FIELD_NUMBER = 1;
+    private protocols.ChatProtocol.MessageType type_;
+    /**
+     * <code>required .MessageType type = 1;</code>
+     */
+    public boolean hasType() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required .MessageType type = 1;</code>
+     */
+    public protocols.ChatProtocol.MessageType getType() {
+      return type_;
+    }
+
+    // optional bool status = 2;
+    public static final int STATUS_FIELD_NUMBER = 2;
+    private boolean status_;
+    /**
+     * <code>optional bool status = 2;</code>
+     */
+    public boolean hasStatus() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional bool status = 2;</code>
+     */
+    public boolean getStatus() {
+      return status_;
+    }
+
+    // optional string string = 3;
+    public static final int STRING_FIELD_NUMBER = 3;
+    private java.lang.Object string_;
+    /**
+     * <code>optional string string = 3;</code>
+     */
+    public boolean hasString() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional string string = 3;</code>
+     */
+    public java.lang.String getString() {
+      java.lang.Object ref = string_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          string_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string string = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getStringBytes() {
+      java.lang.Object ref = string_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        string_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private void initFields() {
+      type_ = protocols.ChatProtocol.MessageType.AUTHENTICATION;
+      status_ = false;
+      string_ = "";
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      if (!hasType()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeEnum(1, type_.getNumber());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeBool(2, status_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeBytes(3, getStringBytes());
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(1, type_.getNumber());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(2, status_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(3, getStringBytes());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static protocols.ChatProtocol.ReplyMessage parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocols.ChatProtocol.ReplyMessage parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocols.ChatProtocol.ReplyMessage parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protocols.ChatProtocol.ReplyMessage parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protocols.ChatProtocol.ReplyMessage parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static protocols.ChatProtocol.ReplyMessage parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static protocols.ChatProtocol.ReplyMessage parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static protocols.ChatProtocol.ReplyMessage parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static protocols.ChatProtocol.ReplyMessage parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static protocols.ChatProtocol.ReplyMessage parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(protocols.ChatProtocol.ReplyMessage prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code ReplyMessage}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements protocols.ChatProtocol.ReplyMessageOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return protocols.ChatProtocol.internal_static_ReplyMessage_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return protocols.ChatProtocol.internal_static_ReplyMessage_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                protocols.ChatProtocol.ReplyMessage.class, protocols.ChatProtocol.ReplyMessage.Builder.class);
+      }
+
+      // Construct using protocols.ChatProtocol.ReplyMessage.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        type_ = protocols.ChatProtocol.MessageType.AUTHENTICATION;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        status_ = false;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        string_ = "";
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return protocols.ChatProtocol.internal_static_ReplyMessage_descriptor;
+      }
+
+      public protocols.ChatProtocol.ReplyMessage getDefaultInstanceForType() {
+        return protocols.ChatProtocol.ReplyMessage.getDefaultInstance();
+      }
+
+      public protocols.ChatProtocol.ReplyMessage build() {
+        protocols.ChatProtocol.ReplyMessage result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public protocols.ChatProtocol.ReplyMessage buildPartial() {
+        protocols.ChatProtocol.ReplyMessage result = new protocols.ChatProtocol.ReplyMessage(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.type_ = type_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.status_ = status_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.string_ = string_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof protocols.ChatProtocol.ReplyMessage) {
+          return mergeFrom((protocols.ChatProtocol.ReplyMessage)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(protocols.ChatProtocol.ReplyMessage other) {
+        if (other == protocols.ChatProtocol.ReplyMessage.getDefaultInstance()) return this;
+        if (other.hasType()) {
+          setType(other.getType());
+        }
+        if (other.hasStatus()) {
+          setStatus(other.getStatus());
+        }
+        if (other.hasString()) {
+          bitField0_ |= 0x00000004;
+          string_ = other.string_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasType()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        protocols.ChatProtocol.ReplyMessage parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (protocols.ChatProtocol.ReplyMessage) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      // required .MessageType type = 1;
+      private protocols.ChatProtocol.MessageType type_ = protocols.ChatProtocol.MessageType.AUTHENTICATION;
+      /**
+       * <code>required .MessageType type = 1;</code>
+       */
+      public boolean hasType() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required .MessageType type = 1;</code>
+       */
+      public protocols.ChatProtocol.MessageType getType() {
+        return type_;
+      }
+      /**
+       * <code>required .MessageType type = 1;</code>
+       */
+      public Builder setType(protocols.ChatProtocol.MessageType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000001;
+        type_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required .MessageType type = 1;</code>
+       */
+      public Builder clearType() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        type_ = protocols.ChatProtocol.MessageType.AUTHENTICATION;
+        onChanged();
+        return this;
+      }
+
+      // optional bool status = 2;
+      private boolean status_ ;
+      /**
+       * <code>optional bool status = 2;</code>
+       */
+      public boolean hasStatus() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional bool status = 2;</code>
+       */
+      public boolean getStatus() {
+        return status_;
+      }
+      /**
+       * <code>optional bool status = 2;</code>
+       */
+      public Builder setStatus(boolean value) {
+        bitField0_ |= 0x00000002;
+        status_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional bool status = 2;</code>
+       */
+      public Builder clearStatus() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        status_ = false;
+        onChanged();
+        return this;
+      }
+
+      // optional string string = 3;
+      private java.lang.Object string_ = "";
+      /**
+       * <code>optional string string = 3;</code>
+       */
+      public boolean hasString() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>optional string string = 3;</code>
+       */
+      public java.lang.String getString() {
+        java.lang.Object ref = string_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          string_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string string = 3;</code>
+       */
+      public com.google.protobuf.ByteString
+          getStringBytes() {
+        java.lang.Object ref = string_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          string_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string string = 3;</code>
+       */
+      public Builder setString(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        string_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string string = 3;</code>
+       */
+      public Builder clearString() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        string_ = getDefaultInstance().getString();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string string = 3;</code>
+       */
+      public Builder setStringBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        string_ = value;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:ReplyMessage)
+    }
+
+    static {
+      defaultInstance = new ReplyMessage(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:ReplyMessage)
+  }
+
+  public interface NetMessageOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+
+    // required .MessageType type = 1;
+    /**
+     * <code>required .MessageType type = 1;</code>
+     */
+    boolean hasType();
+    /**
+     * <code>required .MessageType type = 1;</code>
+     */
+    protocols.ChatProtocol.MessageType getType();
+
+    // optional .ChatMessage chatMessage = 2;
+    /**
+     * <code>optional .ChatMessage chatMessage = 2;</code>
+     */
+    boolean hasChatMessage();
+    /**
+     * <code>optional .ChatMessage chatMessage = 2;</code>
+     */
+    protocols.ChatProtocol.ChatMessage getChatMessage();
+    /**
+     * <code>optional .ChatMessage chatMessage = 2;</code>
+     */
+    protocols.ChatProtocol.ChatMessageOrBuilder getChatMessageOrBuilder();
 
     // optional .ChatList chatList = 3;
     /**
@@ -2345,26 +3473,55 @@ public final class ChatProtocol {
      * <code>optional .Image image = 5;</code>
      */
     protocols.ChatProtocol.ImageOrBuilder getImageOrBuilder();
+
+    // optional .ReplyMessage replyMessage = 6;
+    /**
+     * <code>optional .ReplyMessage replyMessage = 6;</code>
+     */
+    boolean hasReplyMessage();
+    /**
+     * <code>optional .ReplyMessage replyMessage = 6;</code>
+     */
+    protocols.ChatProtocol.ReplyMessage getReplyMessage();
+    /**
+     * <code>optional .ReplyMessage replyMessage = 6;</code>
+     */
+    protocols.ChatProtocol.ReplyMessageOrBuilder getReplyMessageOrBuilder();
+
+    // optional string string = 7;
+    /**
+     * <code>optional string string = 7;</code>
+     */
+    boolean hasString();
+    /**
+     * <code>optional string string = 7;</code>
+     */
+    java.lang.String getString();
+    /**
+     * <code>optional string string = 7;</code>
+     */
+    com.google.protobuf.ByteString
+        getStringBytes();
   }
   /**
-   * Protobuf type {@code Message}
+   * Protobuf type {@code NetMessage}
    */
-  public static final class Message extends
+  public static final class NetMessage extends
       com.google.protobuf.GeneratedMessage
-      implements MessageOrBuilder {
-    // Use Message.newBuilder() to construct.
-    private Message(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      implements NetMessageOrBuilder {
+    // Use NetMessage.newBuilder() to construct.
+    private NetMessage(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
       this.unknownFields = builder.getUnknownFields();
     }
-    private Message(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+    private NetMessage(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
 
-    private static final Message defaultInstance;
-    public static Message getDefaultInstance() {
+    private static final NetMessage defaultInstance;
+    public static NetMessage getDefaultInstance() {
       return defaultInstance;
     }
 
-    public Message getDefaultInstanceForType() {
+    public NetMessage getDefaultInstanceForType() {
       return defaultInstance;
     }
 
@@ -2374,7 +3531,7 @@ public final class ChatProtocol {
         getUnknownFields() {
       return this.unknownFields;
     }
-    private Message(
+    private NetMessage(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -2409,8 +3566,16 @@ public final class ChatProtocol {
               break;
             }
             case 18: {
+              protocols.ChatProtocol.ChatMessage.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000002) == 0x00000002)) {
+                subBuilder = chatMessage_.toBuilder();
+              }
+              chatMessage_ = input.readMessage(protocols.ChatProtocol.ChatMessage.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(chatMessage_);
+                chatMessage_ = subBuilder.buildPartial();
+              }
               bitField0_ |= 0x00000002;
-              string_ = input.readBytes();
               break;
             }
             case 26: {
@@ -2452,6 +3617,24 @@ public final class ChatProtocol {
               bitField0_ |= 0x00000010;
               break;
             }
+            case 50: {
+              protocols.ChatProtocol.ReplyMessage.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000020) == 0x00000020)) {
+                subBuilder = replyMessage_.toBuilder();
+              }
+              replyMessage_ = input.readMessage(protocols.ChatProtocol.ReplyMessage.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(replyMessage_);
+                replyMessage_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000020;
+              break;
+            }
+            case 58: {
+              bitField0_ |= 0x00000040;
+              string_ = input.readBytes();
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -2466,28 +3649,28 @@ public final class ChatProtocol {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return protocols.ChatProtocol.internal_static_Message_descriptor;
+      return protocols.ChatProtocol.internal_static_NetMessage_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return protocols.ChatProtocol.internal_static_Message_fieldAccessorTable
+      return protocols.ChatProtocol.internal_static_NetMessage_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              protocols.ChatProtocol.Message.class, protocols.ChatProtocol.Message.Builder.class);
+              protocols.ChatProtocol.NetMessage.class, protocols.ChatProtocol.NetMessage.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<Message> PARSER =
-        new com.google.protobuf.AbstractParser<Message>() {
-      public Message parsePartialFrom(
+    public static com.google.protobuf.Parser<NetMessage> PARSER =
+        new com.google.protobuf.AbstractParser<NetMessage>() {
+      public NetMessage parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new Message(input, extensionRegistry);
+        return new NetMessage(input, extensionRegistry);
       }
     };
 
     @java.lang.Override
-    public com.google.protobuf.Parser<Message> getParserForType() {
+    public com.google.protobuf.Parser<NetMessage> getParserForType() {
       return PARSER;
     }
 
@@ -2508,47 +3691,26 @@ public final class ChatProtocol {
       return type_;
     }
 
-    // optional string string = 2;
-    public static final int STRING_FIELD_NUMBER = 2;
-    private java.lang.Object string_;
+    // optional .ChatMessage chatMessage = 2;
+    public static final int CHATMESSAGE_FIELD_NUMBER = 2;
+    private protocols.ChatProtocol.ChatMessage chatMessage_;
     /**
-     * <code>optional string string = 2;</code>
+     * <code>optional .ChatMessage chatMessage = 2;</code>
      */
-    public boolean hasString() {
+    public boolean hasChatMessage() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>optional string string = 2;</code>
+     * <code>optional .ChatMessage chatMessage = 2;</code>
      */
-    public java.lang.String getString() {
-      java.lang.Object ref = string_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          string_ = s;
-        }
-        return s;
-      }
+    public protocols.ChatProtocol.ChatMessage getChatMessage() {
+      return chatMessage_;
     }
     /**
-     * <code>optional string string = 2;</code>
+     * <code>optional .ChatMessage chatMessage = 2;</code>
      */
-    public com.google.protobuf.ByteString
-        getStringBytes() {
-      java.lang.Object ref = string_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        string_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    public protocols.ChatProtocol.ChatMessageOrBuilder getChatMessageOrBuilder() {
+      return chatMessage_;
     }
 
     // optional .ChatList chatList = 3;
@@ -2617,12 +3779,79 @@ public final class ChatProtocol {
       return image_;
     }
 
+    // optional .ReplyMessage replyMessage = 6;
+    public static final int REPLYMESSAGE_FIELD_NUMBER = 6;
+    private protocols.ChatProtocol.ReplyMessage replyMessage_;
+    /**
+     * <code>optional .ReplyMessage replyMessage = 6;</code>
+     */
+    public boolean hasReplyMessage() {
+      return ((bitField0_ & 0x00000020) == 0x00000020);
+    }
+    /**
+     * <code>optional .ReplyMessage replyMessage = 6;</code>
+     */
+    public protocols.ChatProtocol.ReplyMessage getReplyMessage() {
+      return replyMessage_;
+    }
+    /**
+     * <code>optional .ReplyMessage replyMessage = 6;</code>
+     */
+    public protocols.ChatProtocol.ReplyMessageOrBuilder getReplyMessageOrBuilder() {
+      return replyMessage_;
+    }
+
+    // optional string string = 7;
+    public static final int STRING_FIELD_NUMBER = 7;
+    private java.lang.Object string_;
+    /**
+     * <code>optional string string = 7;</code>
+     */
+    public boolean hasString() {
+      return ((bitField0_ & 0x00000040) == 0x00000040);
+    }
+    /**
+     * <code>optional string string = 7;</code>
+     */
+    public java.lang.String getString() {
+      java.lang.Object ref = string_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          string_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string string = 7;</code>
+     */
+    public com.google.protobuf.ByteString
+        getStringBytes() {
+      java.lang.Object ref = string_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        string_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private void initFields() {
       type_ = protocols.ChatProtocol.MessageType.AUTHENTICATION;
-      string_ = "";
+      chatMessage_ = protocols.ChatProtocol.ChatMessage.getDefaultInstance();
       chatList_ = protocols.ChatProtocol.ChatList.getDefaultInstance();
       authentication_ = protocols.ChatProtocol.Authentication.getDefaultInstance();
       image_ = protocols.ChatProtocol.Image.getDefaultInstance();
+      replyMessage_ = protocols.ChatProtocol.ReplyMessage.getDefaultInstance();
+      string_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -2632,6 +3861,12 @@ public final class ChatProtocol {
       if (!hasType()) {
         memoizedIsInitialized = 0;
         return false;
+      }
+      if (hasChatMessage()) {
+        if (!getChatMessage().isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
       }
       if (hasChatList()) {
         if (!getChatList().isInitialized()) {
@@ -2651,6 +3886,12 @@ public final class ChatProtocol {
           return false;
         }
       }
+      if (hasReplyMessage()) {
+        if (!getReplyMessage().isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -2662,7 +3903,7 @@ public final class ChatProtocol {
         output.writeEnum(1, type_.getNumber());
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeBytes(2, getStringBytes());
+        output.writeMessage(2, chatMessage_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         output.writeMessage(3, chatList_);
@@ -2672,6 +3913,12 @@ public final class ChatProtocol {
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         output.writeMessage(5, image_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        output.writeMessage(6, replyMessage_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        output.writeBytes(7, getStringBytes());
       }
       getUnknownFields().writeTo(output);
     }
@@ -2688,7 +3935,7 @@ public final class ChatProtocol {
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(2, getStringBytes());
+          .computeMessageSize(2, chatMessage_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
@@ -2702,6 +3949,14 @@ public final class ChatProtocol {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(5, image_);
       }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(6, replyMessage_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(7, getStringBytes());
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
       return size;
@@ -2714,53 +3969,53 @@ public final class ChatProtocol {
       return super.writeReplace();
     }
 
-    public static protocols.ChatProtocol.Message parseFrom(
+    public static protocols.ChatProtocol.NetMessage parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static protocols.ChatProtocol.Message parseFrom(
+    public static protocols.ChatProtocol.NetMessage parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static protocols.ChatProtocol.Message parseFrom(byte[] data)
+    public static protocols.ChatProtocol.NetMessage parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static protocols.ChatProtocol.Message parseFrom(
+    public static protocols.ChatProtocol.NetMessage parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static protocols.ChatProtocol.Message parseFrom(java.io.InputStream input)
+    public static protocols.ChatProtocol.NetMessage parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static protocols.ChatProtocol.Message parseFrom(
+    public static protocols.ChatProtocol.NetMessage parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return PARSER.parseFrom(input, extensionRegistry);
     }
-    public static protocols.ChatProtocol.Message parseDelimitedFrom(java.io.InputStream input)
+    public static protocols.ChatProtocol.NetMessage parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input);
     }
-    public static protocols.ChatProtocol.Message parseDelimitedFrom(
+    public static protocols.ChatProtocol.NetMessage parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input, extensionRegistry);
     }
-    public static protocols.ChatProtocol.Message parseFrom(
+    public static protocols.ChatProtocol.NetMessage parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static protocols.ChatProtocol.Message parseFrom(
+    public static protocols.ChatProtocol.NetMessage parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -2769,7 +4024,7 @@ public final class ChatProtocol {
 
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(protocols.ChatProtocol.Message prototype) {
+    public static Builder newBuilder(protocols.ChatProtocol.NetMessage prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
@@ -2781,24 +4036,24 @@ public final class ChatProtocol {
       return builder;
     }
     /**
-     * Protobuf type {@code Message}
+     * Protobuf type {@code NetMessage}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements protocols.ChatProtocol.MessageOrBuilder {
+       implements protocols.ChatProtocol.NetMessageOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return protocols.ChatProtocol.internal_static_Message_descriptor;
+        return protocols.ChatProtocol.internal_static_NetMessage_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return protocols.ChatProtocol.internal_static_Message_fieldAccessorTable
+        return protocols.ChatProtocol.internal_static_NetMessage_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                protocols.ChatProtocol.Message.class, protocols.ChatProtocol.Message.Builder.class);
+                protocols.ChatProtocol.NetMessage.class, protocols.ChatProtocol.NetMessage.Builder.class);
       }
 
-      // Construct using protocols.ChatProtocol.Message.newBuilder()
+      // Construct using protocols.ChatProtocol.NetMessage.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -2810,9 +4065,11 @@ public final class ChatProtocol {
       }
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getChatMessageFieldBuilder();
           getChatListFieldBuilder();
           getAuthenticationFieldBuilder();
           getImageFieldBuilder();
+          getReplyMessageFieldBuilder();
         }
       }
       private static Builder create() {
@@ -2823,7 +4080,11 @@ public final class ChatProtocol {
         super.clear();
         type_ = protocols.ChatProtocol.MessageType.AUTHENTICATION;
         bitField0_ = (bitField0_ & ~0x00000001);
-        string_ = "";
+        if (chatMessageBuilder_ == null) {
+          chatMessage_ = protocols.ChatProtocol.ChatMessage.getDefaultInstance();
+        } else {
+          chatMessageBuilder_.clear();
+        }
         bitField0_ = (bitField0_ & ~0x00000002);
         if (chatListBuilder_ == null) {
           chatList_ = protocols.ChatProtocol.ChatList.getDefaultInstance();
@@ -2843,6 +4104,14 @@ public final class ChatProtocol {
           imageBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000010);
+        if (replyMessageBuilder_ == null) {
+          replyMessage_ = protocols.ChatProtocol.ReplyMessage.getDefaultInstance();
+        } else {
+          replyMessageBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000020);
+        string_ = "";
+        bitField0_ = (bitField0_ & ~0x00000040);
         return this;
       }
 
@@ -2852,23 +4121,23 @@ public final class ChatProtocol {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return protocols.ChatProtocol.internal_static_Message_descriptor;
+        return protocols.ChatProtocol.internal_static_NetMessage_descriptor;
       }
 
-      public protocols.ChatProtocol.Message getDefaultInstanceForType() {
-        return protocols.ChatProtocol.Message.getDefaultInstance();
+      public protocols.ChatProtocol.NetMessage getDefaultInstanceForType() {
+        return protocols.ChatProtocol.NetMessage.getDefaultInstance();
       }
 
-      public protocols.ChatProtocol.Message build() {
-        protocols.ChatProtocol.Message result = buildPartial();
+      public protocols.ChatProtocol.NetMessage build() {
+        protocols.ChatProtocol.NetMessage result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public protocols.ChatProtocol.Message buildPartial() {
-        protocols.ChatProtocol.Message result = new protocols.ChatProtocol.Message(this);
+      public protocols.ChatProtocol.NetMessage buildPartial() {
+        protocols.ChatProtocol.NetMessage result = new protocols.ChatProtocol.NetMessage(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
@@ -2878,7 +4147,11 @@ public final class ChatProtocol {
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
-        result.string_ = string_;
+        if (chatMessageBuilder_ == null) {
+          result.chatMessage_ = chatMessage_;
+        } else {
+          result.chatMessage_ = chatMessageBuilder_.build();
+        }
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
@@ -2903,29 +4176,39 @@ public final class ChatProtocol {
         } else {
           result.image_ = imageBuilder_.build();
         }
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000020;
+        }
+        if (replyMessageBuilder_ == null) {
+          result.replyMessage_ = replyMessage_;
+        } else {
+          result.replyMessage_ = replyMessageBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
+          to_bitField0_ |= 0x00000040;
+        }
+        result.string_ = string_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof protocols.ChatProtocol.Message) {
-          return mergeFrom((protocols.ChatProtocol.Message)other);
+        if (other instanceof protocols.ChatProtocol.NetMessage) {
+          return mergeFrom((protocols.ChatProtocol.NetMessage)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(protocols.ChatProtocol.Message other) {
-        if (other == protocols.ChatProtocol.Message.getDefaultInstance()) return this;
+      public Builder mergeFrom(protocols.ChatProtocol.NetMessage other) {
+        if (other == protocols.ChatProtocol.NetMessage.getDefaultInstance()) return this;
         if (other.hasType()) {
           setType(other.getType());
         }
-        if (other.hasString()) {
-          bitField0_ |= 0x00000002;
-          string_ = other.string_;
-          onChanged();
+        if (other.hasChatMessage()) {
+          mergeChatMessage(other.getChatMessage());
         }
         if (other.hasChatList()) {
           mergeChatList(other.getChatList());
@@ -2936,6 +4219,14 @@ public final class ChatProtocol {
         if (other.hasImage()) {
           mergeImage(other.getImage());
         }
+        if (other.hasReplyMessage()) {
+          mergeReplyMessage(other.getReplyMessage());
+        }
+        if (other.hasString()) {
+          bitField0_ |= 0x00000040;
+          string_ = other.string_;
+          onChanged();
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -2944,6 +4235,12 @@ public final class ChatProtocol {
         if (!hasType()) {
           
           return false;
+        }
+        if (hasChatMessage()) {
+          if (!getChatMessage().isInitialized()) {
+            
+            return false;
+          }
         }
         if (hasChatList()) {
           if (!getChatList().isInitialized()) {
@@ -2963,6 +4260,12 @@ public final class ChatProtocol {
             return false;
           }
         }
+        if (hasReplyMessage()) {
+          if (!getReplyMessage().isInitialized()) {
+            
+            return false;
+          }
+        }
         return true;
       }
 
@@ -2970,11 +4273,11 @@ public final class ChatProtocol {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        protocols.ChatProtocol.Message parsedMessage = null;
+        protocols.ChatProtocol.NetMessage parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (protocols.ChatProtocol.Message) e.getUnfinishedMessage();
+          parsedMessage = (protocols.ChatProtocol.NetMessage) e.getUnfinishedMessage();
           throw e;
         } finally {
           if (parsedMessage != null) {
@@ -3021,78 +4324,121 @@ public final class ChatProtocol {
         return this;
       }
 
-      // optional string string = 2;
-      private java.lang.Object string_ = "";
+      // optional .ChatMessage chatMessage = 2;
+      private protocols.ChatProtocol.ChatMessage chatMessage_ = protocols.ChatProtocol.ChatMessage.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          protocols.ChatProtocol.ChatMessage, protocols.ChatProtocol.ChatMessage.Builder, protocols.ChatProtocol.ChatMessageOrBuilder> chatMessageBuilder_;
       /**
-       * <code>optional string string = 2;</code>
+       * <code>optional .ChatMessage chatMessage = 2;</code>
        */
-      public boolean hasString() {
+      public boolean hasChatMessage() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>optional string string = 2;</code>
+       * <code>optional .ChatMessage chatMessage = 2;</code>
        */
-      public java.lang.String getString() {
-        java.lang.Object ref = string_;
-        if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
-          string_ = s;
-          return s;
+      public protocols.ChatProtocol.ChatMessage getChatMessage() {
+        if (chatMessageBuilder_ == null) {
+          return chatMessage_;
         } else {
-          return (java.lang.String) ref;
+          return chatMessageBuilder_.getMessage();
         }
       }
       /**
-       * <code>optional string string = 2;</code>
+       * <code>optional .ChatMessage chatMessage = 2;</code>
        */
-      public com.google.protobuf.ByteString
-          getStringBytes() {
-        java.lang.Object ref = string_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          string_ = b;
-          return b;
+      public Builder setChatMessage(protocols.ChatProtocol.ChatMessage value) {
+        if (chatMessageBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          chatMessage_ = value;
+          onChanged();
         } else {
-          return (com.google.protobuf.ByteString) ref;
+          chatMessageBuilder_.setMessage(value);
         }
-      }
-      /**
-       * <code>optional string string = 2;</code>
-       */
-      public Builder setString(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-        string_ = value;
-        onChanged();
+        bitField0_ |= 0x00000002;
         return this;
       }
       /**
-       * <code>optional string string = 2;</code>
+       * <code>optional .ChatMessage chatMessage = 2;</code>
        */
-      public Builder clearString() {
+      public Builder setChatMessage(
+          protocols.ChatProtocol.ChatMessage.Builder builderForValue) {
+        if (chatMessageBuilder_ == null) {
+          chatMessage_ = builderForValue.build();
+          onChanged();
+        } else {
+          chatMessageBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      /**
+       * <code>optional .ChatMessage chatMessage = 2;</code>
+       */
+      public Builder mergeChatMessage(protocols.ChatProtocol.ChatMessage value) {
+        if (chatMessageBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) == 0x00000002) &&
+              chatMessage_ != protocols.ChatProtocol.ChatMessage.getDefaultInstance()) {
+            chatMessage_ =
+              protocols.ChatProtocol.ChatMessage.newBuilder(chatMessage_).mergeFrom(value).buildPartial();
+          } else {
+            chatMessage_ = value;
+          }
+          onChanged();
+        } else {
+          chatMessageBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      /**
+       * <code>optional .ChatMessage chatMessage = 2;</code>
+       */
+      public Builder clearChatMessage() {
+        if (chatMessageBuilder_ == null) {
+          chatMessage_ = protocols.ChatProtocol.ChatMessage.getDefaultInstance();
+          onChanged();
+        } else {
+          chatMessageBuilder_.clear();
+        }
         bitField0_ = (bitField0_ & ~0x00000002);
-        string_ = getDefaultInstance().getString();
-        onChanged();
         return this;
       }
       /**
-       * <code>optional string string = 2;</code>
+       * <code>optional .ChatMessage chatMessage = 2;</code>
        */
-      public Builder setStringBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-        string_ = value;
+      public protocols.ChatProtocol.ChatMessage.Builder getChatMessageBuilder() {
+        bitField0_ |= 0x00000002;
         onChanged();
-        return this;
+        return getChatMessageFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .ChatMessage chatMessage = 2;</code>
+       */
+      public protocols.ChatProtocol.ChatMessageOrBuilder getChatMessageOrBuilder() {
+        if (chatMessageBuilder_ != null) {
+          return chatMessageBuilder_.getMessageOrBuilder();
+        } else {
+          return chatMessage_;
+        }
+      }
+      /**
+       * <code>optional .ChatMessage chatMessage = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          protocols.ChatProtocol.ChatMessage, protocols.ChatProtocol.ChatMessage.Builder, protocols.ChatProtocol.ChatMessageOrBuilder> 
+          getChatMessageFieldBuilder() {
+        if (chatMessageBuilder_ == null) {
+          chatMessageBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              protocols.ChatProtocol.ChatMessage, protocols.ChatProtocol.ChatMessage.Builder, protocols.ChatProtocol.ChatMessageOrBuilder>(
+                  chatMessage_,
+                  getParentForChildren(),
+                  isClean());
+          chatMessage_ = null;
+        }
+        return chatMessageBuilder_;
       }
 
       // optional .ChatList chatList = 3;
@@ -3446,15 +4792,206 @@ public final class ChatProtocol {
         return imageBuilder_;
       }
 
-      // @@protoc_insertion_point(builder_scope:Message)
+      // optional .ReplyMessage replyMessage = 6;
+      private protocols.ChatProtocol.ReplyMessage replyMessage_ = protocols.ChatProtocol.ReplyMessage.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          protocols.ChatProtocol.ReplyMessage, protocols.ChatProtocol.ReplyMessage.Builder, protocols.ChatProtocol.ReplyMessageOrBuilder> replyMessageBuilder_;
+      /**
+       * <code>optional .ReplyMessage replyMessage = 6;</code>
+       */
+      public boolean hasReplyMessage() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      /**
+       * <code>optional .ReplyMessage replyMessage = 6;</code>
+       */
+      public protocols.ChatProtocol.ReplyMessage getReplyMessage() {
+        if (replyMessageBuilder_ == null) {
+          return replyMessage_;
+        } else {
+          return replyMessageBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>optional .ReplyMessage replyMessage = 6;</code>
+       */
+      public Builder setReplyMessage(protocols.ChatProtocol.ReplyMessage value) {
+        if (replyMessageBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          replyMessage_ = value;
+          onChanged();
+        } else {
+          replyMessageBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000020;
+        return this;
+      }
+      /**
+       * <code>optional .ReplyMessage replyMessage = 6;</code>
+       */
+      public Builder setReplyMessage(
+          protocols.ChatProtocol.ReplyMessage.Builder builderForValue) {
+        if (replyMessageBuilder_ == null) {
+          replyMessage_ = builderForValue.build();
+          onChanged();
+        } else {
+          replyMessageBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000020;
+        return this;
+      }
+      /**
+       * <code>optional .ReplyMessage replyMessage = 6;</code>
+       */
+      public Builder mergeReplyMessage(protocols.ChatProtocol.ReplyMessage value) {
+        if (replyMessageBuilder_ == null) {
+          if (((bitField0_ & 0x00000020) == 0x00000020) &&
+              replyMessage_ != protocols.ChatProtocol.ReplyMessage.getDefaultInstance()) {
+            replyMessage_ =
+              protocols.ChatProtocol.ReplyMessage.newBuilder(replyMessage_).mergeFrom(value).buildPartial();
+          } else {
+            replyMessage_ = value;
+          }
+          onChanged();
+        } else {
+          replyMessageBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000020;
+        return this;
+      }
+      /**
+       * <code>optional .ReplyMessage replyMessage = 6;</code>
+       */
+      public Builder clearReplyMessage() {
+        if (replyMessageBuilder_ == null) {
+          replyMessage_ = protocols.ChatProtocol.ReplyMessage.getDefaultInstance();
+          onChanged();
+        } else {
+          replyMessageBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000020);
+        return this;
+      }
+      /**
+       * <code>optional .ReplyMessage replyMessage = 6;</code>
+       */
+      public protocols.ChatProtocol.ReplyMessage.Builder getReplyMessageBuilder() {
+        bitField0_ |= 0x00000020;
+        onChanged();
+        return getReplyMessageFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .ReplyMessage replyMessage = 6;</code>
+       */
+      public protocols.ChatProtocol.ReplyMessageOrBuilder getReplyMessageOrBuilder() {
+        if (replyMessageBuilder_ != null) {
+          return replyMessageBuilder_.getMessageOrBuilder();
+        } else {
+          return replyMessage_;
+        }
+      }
+      /**
+       * <code>optional .ReplyMessage replyMessage = 6;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          protocols.ChatProtocol.ReplyMessage, protocols.ChatProtocol.ReplyMessage.Builder, protocols.ChatProtocol.ReplyMessageOrBuilder> 
+          getReplyMessageFieldBuilder() {
+        if (replyMessageBuilder_ == null) {
+          replyMessageBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              protocols.ChatProtocol.ReplyMessage, protocols.ChatProtocol.ReplyMessage.Builder, protocols.ChatProtocol.ReplyMessageOrBuilder>(
+                  replyMessage_,
+                  getParentForChildren(),
+                  isClean());
+          replyMessage_ = null;
+        }
+        return replyMessageBuilder_;
+      }
+
+      // optional string string = 7;
+      private java.lang.Object string_ = "";
+      /**
+       * <code>optional string string = 7;</code>
+       */
+      public boolean hasString() {
+        return ((bitField0_ & 0x00000040) == 0x00000040);
+      }
+      /**
+       * <code>optional string string = 7;</code>
+       */
+      public java.lang.String getString() {
+        java.lang.Object ref = string_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          string_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string string = 7;</code>
+       */
+      public com.google.protobuf.ByteString
+          getStringBytes() {
+        java.lang.Object ref = string_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          string_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string string = 7;</code>
+       */
+      public Builder setString(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000040;
+        string_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string string = 7;</code>
+       */
+      public Builder clearString() {
+        bitField0_ = (bitField0_ & ~0x00000040);
+        string_ = getDefaultInstance().getString();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string string = 7;</code>
+       */
+      public Builder setStringBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000040;
+        string_ = value;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:NetMessage)
     }
 
     static {
-      defaultInstance = new Message(true);
+      defaultInstance = new NetMessage(true);
       defaultInstance.initFields();
     }
 
-    // @@protoc_insertion_point(class_scope:Message)
+    // @@protoc_insertion_point(class_scope:NetMessage)
   }
 
   private static com.google.protobuf.Descriptors.Descriptor
@@ -3468,6 +5005,11 @@ public final class ChatProtocol {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_ChatPerson_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_ChatMessage_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_ChatMessage_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
     internal_static_Image_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -3478,10 +5020,15 @@ public final class ChatProtocol {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_ChatList_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_Message_descriptor;
+    internal_static_ReplyMessage_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_Message_fieldAccessorTable;
+      internal_static_ReplyMessage_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_NetMessage_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_NetMessage_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -3493,17 +5040,21 @@ public final class ChatProtocol {
     java.lang.String[] descriptorData = {
       "\n\027src/chat_protocol.proto\"5\n\016Authenticat" +
       "ion\022\021\n\tversionID\030\001 \002(\001\022\020\n\010password\030\002 \001(\t" +
-      "\"\032\n\nChatPerson\022\014\n\004name\030\001 \002(\t\"\032\n\005Image\022\021\n" +
-      "\timageData\030\001 \002(\014\"\'\n\010ChatList\022\033\n\006person\030\001" +
-      " \003(\0132\013.ChatPerson\"\222\001\n\007Message\022\032\n\004type\030\001 " +
-      "\002(\0162\014.MessageType\022\016\n\006string\030\002 \001(\t\022\033\n\010cha" +
-      "tList\030\003 \001(\0132\t.ChatList\022\'\n\016authentication" +
-      "\030\004 \001(\0132\017.Authentication\022\025\n\005image\030\005 \001(\0132\006" +
-      ".Image*\214\001\n\013MessageType\022\022\n\016AUTHENTICATION" +
-      "\020\000\022\016\n\nNAME_AVAIL\020\001\022\t\n\005REPLY\020\002\022\020\n\014CHAT_ME",
-      "SSAGE\020\003\022\014\n\010NAME_SET\020\004\022\r\n\tJOIN_CHAT\020\005\022\017\n\013" +
-      "LIST_UPDATE\020\006\022\016\n\nICON_IMAGE\020\007B\031\n\tprotoco" +
-      "lsB\014ChatProtocol"
+      "\"\032\n\nChatPerson\022\014\n\004name\030\001 \002(\t\"\036\n\013ChatMess" +
+      "age\022\017\n\007message\030\001 \002(\t\"\032\n\005Image\022\021\n\timageDa" +
+      "ta\030\001 \002(\014\"\'\n\010ChatList\022\033\n\006person\030\001 \003(\0132\013.C" +
+      "hatPerson\"J\n\014ReplyMessage\022\032\n\004type\030\001 \002(\0162" +
+      "\014.MessageType\022\016\n\006status\030\002 \001(\010\022\016\n\006string\030" +
+      "\003 \001(\t\"\335\001\n\nNetMessage\022\032\n\004type\030\001 \002(\0162\014.Mes" +
+      "sageType\022!\n\013chatMessage\030\002 \001(\0132\014.ChatMess" +
+      "age\022\033\n\010chatList\030\003 \001(\0132\t.ChatList\022\'\n\016auth",
+      "entication\030\004 \001(\0132\017.Authentication\022\025\n\005ima" +
+      "ge\030\005 \001(\0132\006.Image\022#\n\014replyMessage\030\006 \001(\0132\r" +
+      ".ReplyMessage\022\016\n\006string\030\007 \001(\t*\214\001\n\013Messag" +
+      "eType\022\022\n\016AUTHENTICATION\020\000\022\016\n\nNAME_AVAIL\020" +
+      "\001\022\t\n\005REPLY\020\002\022\020\n\014CHAT_MESSAGE\020\003\022\014\n\010NAME_S" +
+      "ET\020\004\022\r\n\tJOIN_CHAT\020\005\022\017\n\013LIST_UPDATE\020\006\022\016\n\n" +
+      "ICON_IMAGE\020\007B\031\n\tprotocolsB\014ChatProtocol"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -3522,24 +5073,36 @@ public final class ChatProtocol {
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_ChatPerson_descriptor,
               new java.lang.String[] { "Name", });
-          internal_static_Image_descriptor =
+          internal_static_ChatMessage_descriptor =
             getDescriptor().getMessageTypes().get(2);
+          internal_static_ChatMessage_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_ChatMessage_descriptor,
+              new java.lang.String[] { "Message", });
+          internal_static_Image_descriptor =
+            getDescriptor().getMessageTypes().get(3);
           internal_static_Image_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_Image_descriptor,
               new java.lang.String[] { "ImageData", });
           internal_static_ChatList_descriptor =
-            getDescriptor().getMessageTypes().get(3);
+            getDescriptor().getMessageTypes().get(4);
           internal_static_ChatList_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_ChatList_descriptor,
               new java.lang.String[] { "Person", });
-          internal_static_Message_descriptor =
-            getDescriptor().getMessageTypes().get(4);
-          internal_static_Message_fieldAccessorTable = new
+          internal_static_ReplyMessage_descriptor =
+            getDescriptor().getMessageTypes().get(5);
+          internal_static_ReplyMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_Message_descriptor,
-              new java.lang.String[] { "Type", "String", "ChatList", "Authentication", "Image", });
+              internal_static_ReplyMessage_descriptor,
+              new java.lang.String[] { "Type", "Status", "String", });
+          internal_static_NetMessage_descriptor =
+            getDescriptor().getMessageTypes().get(6);
+          internal_static_NetMessage_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_NetMessage_descriptor,
+              new java.lang.String[] { "Type", "ChatMessage", "ChatList", "Authentication", "Image", "ReplyMessage", "String", });
           return null;
         }
       };

@@ -1,3 +1,8 @@
+import com.google.protobuf.InvalidProtocolBufferException;
+import protocols.ChatProtocol.*;
+//import protocols.ChatProtocol.NetMessage;
+//import protocols.ChatProtocol.MessageType;
+//import protocols.ChatProtocol.ChatMessage;
 
 public class ChatAgent implements ConnectionListener {
 
@@ -23,24 +28,38 @@ public class ChatAgent implements ConnectionListener {
 	}
 
 	public void sendText(String s) {
-		connection.send(new NetObject(NetObject.CHAT_MESSAGE,s));
+        NetMessage.Builder message = NetMessage.newBuilder()
+                                        .setType(MessageType.CHAT_MESSAGE)
+                                        .setChatMessage(ChatMessage.newBuilder().setMessage(s));
+        connection.send(message.build().toByteArray());
+// 		connection.send(new NetObject(NetObject.CHAT_MESSAGE,s));
 	}
 
 	public void requestChatPersonList() {
-		connection.send(new NetObject(NetObject.CHAT_PERSON_LIST_UPDATE));
+        NetMessage.Builder request = NetMessage.newBuilder()
+                .setType(MessageType.LIST_UPDATE);
+        connection.send(request.build().toByteArray());
+//		connection.send(new NetObject(NetObject.CHAT_PERSON_LIST_UPDATE));
 	}
 	
 	@Override
 	public void objectReceived(Object o) {
-		NetObject n = (NetObject)o;
-		switch (n.type) {
-		case NetObject.CHAT_MESSAGE:
-			chatWindow.addMessage(n.string);
-			break;
-		case NetObject.CHAT_PERSON_LIST_UPDATE:
-			chatWindow.updateChatPersonList((ChatPerson[])n.object);
-			break;
-		}
+        try {
+		    NetMessage n = NetMessage.parseFrom((byte[])o);
+            switch (n.getType()) {
+                case CHAT_MESSAGE:
+                    chatWindow.addMessage(n.getChatMessage().getMessage());
+                    break;
+                case LIST_UPDATE:
+                    chatWindow.updateChatPersonList(n.getChatList().getPersonList());
+                    break;
+			default:
+				System.err.println("Unhandled NetMessage in ChatAgent");
+				break;
+            }
+        } catch (InvalidProtocolBufferException e) {
+            e.printStackTrace();
+        }
 	}
 
 	@Override

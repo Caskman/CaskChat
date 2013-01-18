@@ -22,6 +22,10 @@ message ChatPerson {
 	required string name = 1;
 }
 
+message ChatMessage {
+	required string message = 1;
+}
+
 message Image {
 	required bytes imageData = 1;
 }
@@ -29,18 +33,25 @@ message Image {
 message ChatList {
 	repeated ChatPerson person = 1;
 }
+
+message ReplyMessage {
+	required MessageType type = 1;
+	optional bool status = 2;
+	optional string string = 3;
+}
 	
-message Message {
+message NetMessage {
 	
 	
 	
 	required MessageType type = 1;
 	
-	optional string string = 2;
+	optional ChatMessage chatMessage = 2;
 	optional ChatList chatList = 3;
 	optional Authentication authentication = 4;
 	optional Image image = 5;
-	
+	optional ReplyMessage replyMessage = 6;
+	optional string string = 7;
 	
 }
 
