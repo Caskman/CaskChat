@@ -88,7 +88,10 @@ public class MenuAgent implements ConnectionListener {
 			break;
 		case NAME_SET:
 			if (r.getStatus())
-				connection.send(new NetObject(NetObject.JOIN_CHAT));
+				connection.send(NetMessage.newBuilder()
+						.setType(MessageType.JOIN_CHAT)
+						.build().toByteArray());
+//				connection.send(new NetObject(NetObject.JOIN_CHAT));
 			else
 				chatMenu.joinDeniedCuzName();
 			break;

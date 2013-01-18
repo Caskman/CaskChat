@@ -2,6 +2,7 @@ import java.awt.EventQueue;
 import java.net.Socket;
 import java.util.List;
 
+import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 import protocols.ChatProtocol.*;
@@ -134,7 +135,7 @@ public class ClientAgent implements ConnectionListener {
 							.setType(MessageType.NAME_SET)
 							.setStatus(false))
 					.build().toByteArray());
-			connection.send(new NetObject(NetObject.ACKNOWLEDGE,NetObject.NAME_SET,false));
+//			connection.send(new NetObject(NetObject.ACKNOWLEDGE,NetObject.NAME_SET,false));
 		}
 	}
 	
@@ -206,9 +207,17 @@ public class ClientAgent implements ConnectionListener {
 
 	@Override
 	public void hasConnected() {
-		connection.send(new NetObject(NetObject.AUTHENTICATE,NetObject.VERSION_ID));
+		connection.send(NetMessage.newBuilder()
+				.setType(MessageType.AUTHENTICATION)
+				.build().toByteArray());
+//		connection.send(new NetObject(NetObject.AUTHENTICATE,NetObject.VERSION_ID));
 		if (manager.hasIconImage())
-			connection.send(new NetObject(NetObject.ICON_IMAGE,manager.getIconImage()));
+			connection.send(NetMessage.newBuilder()
+					.setType(MessageType.ICON_IMAGE)
+					.setImage(Image.newBuilder()
+							.setImageData(ByteString.copyFrom(manager.getIconImageData())))
+					.build().toByteArray());
+//			connection.send(new NetObject(NetObject.ICON_IMAGE,manager.getIconImage()));
 	}
 
 	@Override

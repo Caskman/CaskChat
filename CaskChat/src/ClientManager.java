@@ -1,8 +1,10 @@
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.net.Socket;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.swing.ImageIcon;
+import javax.imageio.ImageIO;
 
 import protocols.ChatProtocol.ChatPerson;
 
@@ -25,8 +27,25 @@ public class ClientManager {
 		return Parameters.APP_ICON != null;
 	}
 	
-	public ImageIcon getIconImage() {
-		return Parameters.APP_ICON;
+//	public ImageIcon getIconImage() {
+//		return new ImageIcon(Parameters.APP_ICON);
+//	}
+	
+	public byte[] getIconImageData() {
+		if (Parameters.APP_ICON == null)
+			return null;
+		try {
+			ByteArrayOutputStream out = new ByteArrayOutputStream();
+			ImageIO.write(Parameters.APP_ICON,"jpg",out);
+			out.flush();
+			byte[] data = out.toByteArray();
+			out.close();
+			return data;
+		} catch (IOException e) {
+			System.err.println("Error writing app icon to byte array");
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	public void addClient(Socket client) {
