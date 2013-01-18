@@ -36,7 +36,7 @@ public class ChatMenu extends JFrame {
 	private boolean joinChatPressed;
 	
 	public ChatMenu() {
-//		new ConsoleWindow().setTitle("CaskChat Client");
+		new ConsoleWindow().setTitle("CaskChat Client");
 		initialize();
 	}
 	

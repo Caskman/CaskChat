@@ -42,7 +42,7 @@ public class ChatWindow extends JFrame {
 	private ChatAgent agent;
 	private boolean isFirst;
 	private JScrollPane messageScrollPane;
-	private JList<ChatPerson> chatListBox;
+	private JList<ChatPersonWrapper> chatListBox;
 	private ChatListModel chatList;
 
 	public ChatWindow() {
@@ -102,7 +102,7 @@ public class ChatWindow extends JFrame {
 		panel.setMinimumSize(panelDims);
 		
 		int listMargin = 5;
-		chatListBox = new JList<ChatPerson>(chatList = new ChatListModel());
+		chatListBox = new JList<ChatPersonWrapper>(chatList = new ChatListModel());
 		chatListBox.setSize((panelDims.width - panelDims.height)/2 - padding,panelDims.height - 2*padding);
 		chatListBox.setBorder(new EmptyBorder(listMargin,listMargin,listMargin,listMargin));
 		chatListBox.addFocusListener(new FocusListener() {
@@ -176,11 +176,11 @@ public class ChatWindow extends JFrame {
 	}
 	
 	public void updateChatPersonList(List<ChatPerson> list) {
-		List<ChatPerson> betterList = new ArrayList<ChatPerson>(list.size()-1);
+		List<ChatPersonWrapper> betterList = new ArrayList<ChatPersonWrapper>(list.size()-1);
 		
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i).getName().compareTo(agent.getName()) != 0)
-				betterList.add(list.get(i));
+				betterList.add(new ChatPersonWrapper(list.get(i)));
 		}
 		
 		chatList.updateList(betterList);

@@ -6,20 +6,19 @@ import javax.swing.ListModel;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 
-import protocols.ChatProtocol.ChatPerson;
 
 
-public class ChatListModel implements ListModel<ChatPerson> {
+public class ChatListModel implements ListModel<ChatPersonWrapper> {
 
-	private List<ChatPerson> list;
+	private List<ChatPersonWrapper> list;
 	private List<ListDataListener> listeners;
 	
 	public ChatListModel() {
-		list = new ArrayList<ChatPerson>();
+		list = new ArrayList<ChatPersonWrapper>();
 		listeners = new LinkedList<ListDataListener>();
 	}
 
-	public void updateList(List<ChatPerson> betterList) {
+	public void updateList(List<ChatPersonWrapper> betterList) {
 		list.clear();
 		list.addAll(betterList);
 		notifyListeners(new ListDataEvent(this,ListDataEvent.CONTENTS_CHANGED,0,list.size()-1));
@@ -37,7 +36,7 @@ public class ChatListModel implements ListModel<ChatPerson> {
 	}
 
 	@Override
-	public ChatPerson getElementAt(int i) {
+	public ChatPersonWrapper getElementAt(int i) {
 		return list.get(i);
 	}
 
