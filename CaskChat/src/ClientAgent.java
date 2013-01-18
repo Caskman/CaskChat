@@ -191,7 +191,7 @@ public class ClientAgent implements ConnectionListener {
 	
 	private void chatMessageReceived(NetMessage n) {
 		if (isInChat) {
-			final String message = n.getString();
+			final String message = n.getChatMessage().getMessage();
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
 					manager.addChatMessage(name, message);
