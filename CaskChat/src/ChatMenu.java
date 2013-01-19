@@ -36,7 +36,7 @@ public class ChatMenu extends JFrame {
 	private boolean joinChatPressed;
 	
 	public ChatMenu() {
-		new ConsoleWindow().setTitle("CaskChat Client");
+//		new ConsoleWindow().setTitle("CaskChat Client");
 		initialize();
 	}
 	
@@ -201,6 +201,7 @@ public class ChatMenu extends JFrame {
 	
 	private void nameChanged() {
 		joinButton.setEnabled(false);
+		joinChatPressed = false;
 		String text = nameField.getText().trim();
 		name = text;
 		if (text.compareTo("") == 0) {
@@ -225,8 +226,10 @@ public class ChatMenu extends JFrame {
 				joinChat();
 			else
 				joinChatPressed = false;
-		} else 
+		} else {
 			joinButton.setEnabled(false);
+			joinChatPressed = false;
+		}
 		
 	}
 	
