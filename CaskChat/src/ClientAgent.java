@@ -39,9 +39,11 @@ public class ClientAgent implements ConnectionListener {
 	}
 
 	public void sendChatMessage(String name, String message) {
-        NetMessage.Builder netMessage = NetMessage.newBuilder()
-                .setChatMessage(ChatMessage.newBuilder().setMessage(message));
-        connection.send(netMessage.build().toByteArray());
+        connection.send(NetMessage.newBuilder()
+        		.setType(MessageType.CHAT_MESSAGE)
+        		.setChatMessage(ChatMessage.newBuilder()
+        				.setMessage(message))
+        		.build().toByteArray());
 //        connection.send(new NetObject(NetObject.CHAT_MESSAGE, message));
 	}
 

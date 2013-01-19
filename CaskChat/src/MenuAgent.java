@@ -51,6 +51,7 @@ public class MenuAgent implements ConnectionListener {
 		NetMessage n;
 		try {
 			n = NetMessage.parseFrom((byte[])o);
+		    System.out.println(n.getType().toString() + " message received");
 			switch (n.getType()) {
 			case AUTHENTICATION:
 				authenticate(n);

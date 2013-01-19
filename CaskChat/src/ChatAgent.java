@@ -46,7 +46,7 @@ public class ChatAgent implements ConnectionListener {
 	public void objectReceived(Object o) {
         try {
 		    NetMessage n = NetMessage.parseFrom((byte[])o);
-		    System.out.println(n.getType().toString() + " request received");
+		    System.out.println(n.getType().toString() + " message received");
             switch (n.getType()) {
                 case CHAT_MESSAGE:
                     chatWindow.addMessage(n.getChatMessage().getMessage());
