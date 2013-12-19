@@ -1,4 +1,4 @@
-CaskChat
+##CaskChat##
 ========
 
-simple Java chat client
+Primitive Java Chat Client and Server
